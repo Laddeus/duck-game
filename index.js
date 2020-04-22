@@ -36,10 +36,12 @@ class Duck{
         this.x = canvas.width - this.width;
         this.y = 0;
         this.moveX = -3;
+        this.moveY = 0;
     }
 
     move(){
         this.x += this.moveX;
+        this.y += this.moveY;
         if(this.x < 0){
             this.x = canvas.width - this.image.width;
         }
@@ -90,9 +92,29 @@ function onDuckClick(mouseEvent){
         console.log('clicked');
     }
 
+    // move duck to where user clicks
     if(pointInCanvas(mouseEvent.x, mouseEvent.y)){
-        duck.x = mouseEvent.x - canvas.offsetLeft;
-        duck.y = mouseEvent.y - canvas.offsetTop;
+        let duckX = duck.x + canvas.offsetLeft;
+        let duckY = duck.y + canvas.offsetTop;
+
+        // y = mx + c
+        let directionAngle = undefined;
+        if(duckX - mouseEvent.x){
+            directionAngle = (duckY - mouseEvent.y) / (duckX - mouseEvent.x);
+        }
+
+        if(mouseEvent.x > duckX){
+            duck.moveX = 3;
+        }
+        else{
+            duck.moveX = -3;
+        }
+
+        duck.moveY = directionAngle * duck.moveX;
+
+
+        console.log(duck.moveY);
+
     }
     else{
         console.log('wrong');
