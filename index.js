@@ -5,7 +5,7 @@ let stopY = undefined
 
 leftBorder = 10;
 rightBorder = 10;
-topBorder = 50;
+topBorder = 30;
 bottomBorder = 10;;
 
 
