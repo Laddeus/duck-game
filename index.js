@@ -40,6 +40,7 @@ class Duck{
         this.y = 0;
         this.moveX = -3;
         this.moveY = 0;
+        this.speed = 5;
     }
 
     move() {
@@ -108,30 +109,16 @@ function onDuckClick(mouseEvent){
     }
 
     // move duck to where user clicks
-    if(pointInCanvas(mouseEvent.x, mouseEvent.y)){
+    if(pointInCanvas(mouseEvent.x, mouseEvent.y)) {
         stopX = mouseEvent.x;
         stopY = mouseEvent.y;
+
         let duckX = duck.x + canvas.offsetLeft;
         let duckY = duck.y + canvas.offsetTop;
+        let distanceToPoint = Math.sqrt(squareOf(duckX - stopX) + squareOf(duckY - stopY));
 
-        // y = mx + c
-        let directionAngle = undefined;
-        if(duckX - mouseEvent.x != 0){
-            directionAngle = (duckY - mouseEvent.y) / (duckX - mouseEvent.x);
-        }
-
-        if(mouseEvent.x > duckX){
-            duck.moveX =     3;
-        }
-        else{
-            duck.moveX = -3;
-        }
-
-        duck.moveY = directionAngle * duck.moveX;
-        console.log(duck.moveY);
-    }
-    else{
-        console.log('wrong');
+        duck.moveX = duck.speed * (mouseEvent.x - duckX) / distanceToPoint;
+        duck.moveY = duck.speed * (mouseEvent.y - duckY) / distanceToPoint;
     }
 }
 
@@ -144,8 +131,3 @@ let gameGrid = new GameGrid();
 let duck = new Duck();
 requestAnimationFrame(updateData);
 canvas.addEventListener("mousedown", onDuckClick);
-
-
-
-
-
