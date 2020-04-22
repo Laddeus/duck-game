@@ -34,7 +34,7 @@ class GameGrid{
 /*let canvas = document.querySelector('canvas');
 let context = canvas.getContext('2d');*/
 
-let squareSize = 25; // 25x25
+let squareSize = 25; // 25x25 god
 let gameGrid = new GameGrid();
 let someSquare = gameGrid.getSquare(42, 456);
 
