@@ -1,7 +1,12 @@
 let canvas = document.querySelector('canvas');
 let context = canvas.getContext('2d');
 let stopX = undefined;
-let stopY = undefined;
+let stopY = undefined
+
+leftBorder = 10;
+rightBorder = 10;
+topBorder = 50;
+bottomBorder = 10;;
 
 
 // classes
@@ -36,9 +41,9 @@ class Duck{
         this.height = 50;
         this.image = new Image(this.width, this.height);
         this.image.src = 'images/duck.png';
-        this.x = canvas.width - this.width;
-        this.y = 0;
-        this.moveX = -3;
+        this.x = canvas.width - this.width - rightBorder;
+        this.y = 0 + topBorder;
+        this.moveX = 0;
         this.moveY = 0;
         this.speed = 5;
     }
@@ -46,21 +51,26 @@ class Duck{
     move() {
         this.x += this.moveX;
         this.y += this.moveY;
-        if (this.x < 0) {
-            this.x = canvas.width - this.image.width;
-        }
-        // check if need to stop
-        if (stopX != undefined && stopY != undefined) {
 
-            let currentDistanceToStopPoint = squareOf(this.x + canvas.offsetLeft - stopX)
-                + squareOf(this.y + canvas.offsetTop - stopY);
-            let distanceAfterMove = squareOf(this.x + this.moveX + canvas.offsetLeft - stopX)
-                + squareOf(this.y + this.moveY + canvas.offsetTop - stopY)
-            if (distanceAfterMove > currentDistanceToStopPoint ) {
-                this.moveX = 0;
-                this.moveY = 0;
-            }
+        this.checkBoundaries();
+        this.checkIfReachedStopPoint();
+    }
+
+    checkBoundaries() {
+        let duckX = this.x + canvas.offsetLeft;
+        let duckY = this.y + canvas.offsetTop;
+
+        if(duckX + this.width > canvas.offsetLeft + canvas.width - rightBorder){
+            this.x -= this.moveX;
+            this.y -= this.moveY;
+
+            this.moveX = 0;
+            this.moveY = 0;
+
+            return false;
         }
+
+        return true;
     }
 
     draw(){
@@ -79,6 +89,20 @@ class Duck{
         return false;
     }
 
+    checkIfReachedStopPoint() {
+        // check if need to stop
+        if (stopX != undefined && stopY != undefined) {
+
+            let currentDistanceToStopPoint = squareOf(this.x + canvas.offsetLeft - stopX)
+                + squareOf(this.y + canvas.offsetTop - stopY);
+            let distanceAfterMove = squareOf(this.x + this.moveX + canvas.offsetLeft - stopX)
+                + squareOf(this.y + this.moveY + canvas.offsetTop - stopY)
+            if (distanceAfterMove > currentDistanceToStopPoint ) {
+                this.moveX = 0;
+                this.moveY = 0;
+            }
+        }
+    }
 }
 
 // functions
@@ -95,8 +119,8 @@ function updateCanvas(){
 }
 
 function pointInCanvas(x, y){
-    if(x <= canvas.offsetLeft + canvas.width && x >= canvas.offsetLeft
-    && y <= canvas.offsetTop + canvas.height && y >= canvas.offsetTop){
+    if(x <= canvas.offsetLeft + canvas.width - rightBorder && x >= canvas.offsetLeft + leftBorder
+    && y <= canvas.offsetTop + canvas.height - bottomBorder && y >= canvas.offsetTop + topBorder){
         return true;
     }
 
@@ -120,10 +144,14 @@ function onDuckClick(mouseEvent){
         duck.moveX = duck.speed * (mouseEvent.x - duckX) / distanceToPoint;
         duck.moveY = duck.speed * (mouseEvent.y - duckY) / distanceToPoint;
     }
-}
+    }
 
 function squareOf(num){
     return num*num;
+}
+
+function myFunction(){
+    console.log('hi');
 }
 
 // main
