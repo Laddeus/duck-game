@@ -31,10 +31,17 @@ class Duck{
     constructor() {
         this.x = canvas.width - 80;
         this.y = 0;
+        this.moveX = -3;
         this.image = new Image(80, 50);
         this.image.src = 'images/duck.png';
     }
 
+    move(){
+        this.x += this.moveX;
+        if(this.x < 0){
+            this.x = canvas.width - this.image.width;
+        }
+    }
 
     draw(){
         context.drawImage(this.image, this.x, this.y);
@@ -44,8 +51,14 @@ class Duck{
 // functions
 
 function updateData(){
-    duck.draw();
+    duck.move();
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    updateCanvas();
     requestAnimationFrame(updateData);
+}
+
+function updateCanvas(){
+    duck.draw();
 }
 
 
