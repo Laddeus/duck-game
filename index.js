@@ -1,3 +1,6 @@
+let canvas = document.querySelector('canvas');
+let context = canvas.getContext('2d');
+
 // classes
 class Square{
     constructor() {
@@ -9,11 +12,11 @@ class Square{
 
 class GameGrid{
     constructor() {
-        this.canvasGrid = new Array(800 / 25);
+        this.canvasGrid = new Array(canvas.height);
 
-        for (let i = 0; i < 800 / 25 ; i++) {
-            this.canvasGrid[i] = new Array(600 / 25 );
-            for (let j = 0; j < 600 / 25 ; j++) {
+        for (let i = 0; i < canvas.height ; i++) {
+            this.canvasGrid[i] = new Array(canvas.width );
+            for (let j = 0; j < canvas.width ; j++) {
                 this.canvasGrid[i][j] = new Square();
             }
         }
@@ -24,25 +27,35 @@ class GameGrid{
     }
 }
 
+class Duck{
+    constructor() {
+        this.x = canvas.width - 80;
+        this.y = 0;
+        this.image = new Image(80, 50);
+        this.image.src = 'images/duck.png';
+    }
+
+
+    draw(){
+        context.drawImage(this.image, this.x, this.y);
+    }
+}
+
 // functions
 
-
-
+function updateData(){
+    duck.draw();
+    requestAnimationFrame(updateData);
+}
 
 
 // main
-/*let canvas = document.querySelector('canvas');
-let context = canvas.getContext('2d');*/
 
-let squareSize = 25; // 25x25 god
 let gameGrid = new GameGrid();
-let someSquare = gameGrid.getSquare(42, 456);
+let duck = new Duck();
+requestAnimationFrame(updateData);
 
-for (let i = 0; i < gameGrid.canvasGrid.length; i++) {
-    let index = gameGrid.canvasGrid[i].indexOf(someSquare);
 
-    if(index != -1){
-        console.log("found index" + index);
-    }
-}
+
+
 
