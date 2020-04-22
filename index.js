@@ -49,6 +49,18 @@ class Duck{
         context.drawImage(this.image, this.x, this.y);
     }
 
+    contains(x, y){
+        let duckX = duck.x + canvas.offsetLeft
+        let duckY = duck.y + canvas.offsetTop;
+
+        // if clicked on mouse
+        if(x <= duckX + duck.width && x >= duckX
+            && y <= duckY + duck.height && y >= duckY){
+            console.log('clicked');
+        }
+        return false;
+    }
+
 }
 
 // functions
@@ -64,19 +76,27 @@ function updateCanvas(){
     duck.draw();
 }
 
+function pointInCanvas(x, y){
+    if(x <= canvas.offsetLeft + canvas.width && x >= canvas.offsetLeft
+    && y <= canvas.offsetTop + canvas.height && y >= canvas.offsetTop){
+        return true;
+    }
+
+    return false;
+}
+
 function onDuckClick(mouseEvent){
-    let duckX = duck.x + canvas.offsetLeft
-    let duckY = duck.y + canvas.offsetTop;
-    if(mouseEvent.x <= duckX + duck.width && mouseEvent.x >= duckX
-    && mouseEvent.y <= duckY + duck.height && mouseEvent.y >= duckY){
+    if(duck.contains(mouseEvent.x, mouseEvent.y)){
         console.log('clicked');
     }
-    else{
-        console.log('something is wrong');
-    }
-    console.log(canvas.offsetLeft);
 
-    console.log(mouseEvent.x + ", " + mouseEvent.y);
+    if(pointInCanvas(mouseEvent.x, mouseEvent.y)){
+        duck.x = mouseEvent.x - canvas.offsetLeft;
+        duck.y = mouseEvent.y - canvas.offsetTop;
+    }
+    else{
+        console.log('wrong');
+    }
 }
 
 // main
