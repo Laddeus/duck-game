@@ -1,5 +1,8 @@
 let canvas = document.querySelector('canvas');
 let context = canvas.getContext('2d');
+let stopX = undefined;
+let stopY = undefined;
+
 
 // classes
 class Square{
@@ -39,11 +42,23 @@ class Duck{
         this.moveY = 0;
     }
 
-    move(){
+    move() {
         this.x += this.moveX;
         this.y += this.moveY;
-        if(this.x < 0){
+        if (this.x < 0) {
             this.x = canvas.width - this.image.width;
+        }
+        // check if need to stop
+        if (stopX != undefined && stopY != undefined) {
+
+            let currentDistanceToStopPoint = squareOf(this.x + canvas.offsetLeft - stopX)
+                + squareOf(this.y + canvas.offsetTop - stopY);
+            let distanceAfterMove = squareOf(this.x + this.moveX + canvas.offsetLeft - stopX)
+                + squareOf(this.y + this.moveY + canvas.offsetTop - stopY)
+            if (distanceAfterMove > currentDistanceToStopPoint ) {
+                this.moveX = 0;
+                this.moveY = 0;
+            }
         }
     }
 
@@ -55,7 +70,7 @@ class Duck{
         let duckX = duck.x + canvas.offsetLeft
         let duckY = duck.y + canvas.offsetTop;
 
-        // if clicked on mouse
+        // if point is within duck's rectangle
         if(x <= duckX + duck.width && x >= duckX
             && y <= duckY + duck.height && y >= duckY){
             console.log('clicked');
@@ -94,6 +109,8 @@ function onDuckClick(mouseEvent){
 
     // move duck to where user clicks
     if(pointInCanvas(mouseEvent.x, mouseEvent.y)){
+        stopX = mouseEvent.x;
+        stopY = mouseEvent.y;
         let duckX = duck.x + canvas.offsetLeft;
         let duckY = duck.y + canvas.offsetTop;
 
@@ -104,21 +121,22 @@ function onDuckClick(mouseEvent){
         }
 
         if(mouseEvent.x > duckX){
-            duck.moveX = 3;
+            duck.moveX =     3;
         }
         else{
             duck.moveX = -3;
         }
 
         duck.moveY = directionAngle * duck.moveX;
-
-
         console.log(duck.moveY);
-
     }
     else{
         console.log('wrong');
     }
+}
+
+function squareOf(num){
+    return num*num;
 }
 
 // main
