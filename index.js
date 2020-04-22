@@ -99,7 +99,7 @@ function onDuckClick(mouseEvent){
 
         // y = mx + c
         let directionAngle = undefined;
-        if(duckX - mouseEvent.x){
+        if(duckX - mouseEvent.x != 0){
             directionAngle = (duckY - mouseEvent.y) / (duckX - mouseEvent.x);
         }
 
