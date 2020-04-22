@@ -29,11 +29,13 @@ class GameGrid{
 
 class Duck{
     constructor() {
-        this.x = canvas.width - 80;
+        this.width = 80
+        this.height = 50;
+        this.image = new Image(this.width, this.height);
+        this.image.src = 'images/duck.png';
+        this.x = canvas.width - this.width;
         this.y = 0;
         this.moveX = -3;
-        this.image = new Image(80, 50);
-        this.image.src = 'images/duck.png';
     }
 
     move(){
@@ -46,6 +48,7 @@ class Duck{
     draw(){
         context.drawImage(this.image, this.x, this.y);
     }
+
 }
 
 // functions
@@ -61,12 +64,26 @@ function updateCanvas(){
     duck.draw();
 }
 
+function onDuckClick(mouseEvent){
+    let duckX = duck.x + canvas.offsetLeft
+    let duckY = duck.y + canvas.offsetTop;
+    if(mouseEvent.x <= duckX + duck.width && mouseEvent.x >= duckX
+    && mouseEvent.y <= duckY + duck.height && mouseEvent.y >= duckY){
+        console.log('clicked');
+    }
+    else{
+        console.log('something is wrong');
+    }
+    console.log(canvas.offsetLeft);
+
+    console.log(mouseEvent.x + ", " + mouseEvent.y);
+}
 
 // main
-
 let gameGrid = new GameGrid();
 let duck = new Duck();
 requestAnimationFrame(updateData);
+canvas.addEventListener("mousedown", onDuckClick);
 
 
 
