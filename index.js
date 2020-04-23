@@ -45,6 +45,12 @@ function updateCanvas(){
     }
 
     duck.draw();
+
+  /*  for (let i = 0; i < gameGrid.canvasGrid.length; i++) {
+        for (let j = 0; j < gameGrid.canvasGrid[i].length; j++) {
+            gameGrid.canvasGrid[i][j].draw();
+        }
+    }*/
 }
 
 function adjustPointToCanvas(x,y,width,height)
@@ -139,11 +145,13 @@ function spawnBread(){
 }
 
 function pauseUpdateTimer() {
-    clearInterval(updateTimer);
+    clearInterval(idOfSpawnBread);
+    console.log('focus out');
 }
 
 function unpauseUpdateTimer() {
-    setInterval(updateTimer, 1000);
+    idOfSpawnBread = setInterval(spawnBread, 1000);
+    console.log('focus in');
 }
 
 // main
@@ -151,9 +159,9 @@ let gameGrid = new GameGrid();
 let duck = new Duck();
 
 requestAnimationFrame(updateData);
-setInterval(spawnBread, 1000);
+let idOfSpawnBread = setInterval(spawnBread, 1000);
 
 // event listeners
 canvas.addEventListener("mousedown", onCanvasClick);
-window.addEventListener('focusout', pauseUpdateTimer);
-window.addEventListener('focusin', unpauseUpdateTimer);
+window.addEventListener('blur', pauseUpdateTimer);
+window.addEventListener('focus', unpauseUpdateTimer);
