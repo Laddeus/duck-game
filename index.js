@@ -1,3 +1,4 @@
+// initialize variables
 let canvas = document.querySelector('canvas');
 let context = canvas.getContext('2d');
 let stopX = undefined;
@@ -11,6 +12,7 @@ bottomBorder = 10;
 // functions
 function updateData(){
     duck.move();
+    bread.move();
     context.clearRect(0, 0, canvas.width, canvas.height);
     updateCanvas();
     requestAnimationFrame(updateData);
@@ -18,6 +20,7 @@ function updateData(){
 
 function updateCanvas(){
     duck.draw();
+    bread.draw();
 }
 
 function adjustPointToCanvas(x,y,width,height)
@@ -48,7 +51,7 @@ function pointInCanvas(x, y){
 }
 
 function onDuckClick(mouseEvent){
-    
+
     let mousetmp = adjustPointToCanvas(mouseEvent.x, mouseEvent.y, 100,100);
     if(duck.contains(mouseEvent.x, mouseEvent.y)){
         console.log('clicked');
@@ -77,5 +80,8 @@ function myFunction(){
 // main
 let gameGrid = new GameGrid();
 let duck = new Duck();
+let bread = new Bread(500, 500);
 requestAnimationFrame(updateData);
+
+// event listeners
 canvas.addEventListener("mousedown", onDuckClick);

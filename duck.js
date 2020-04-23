@@ -39,8 +39,10 @@ class Duck{
         // if point is within duck's rectangle
         if(x <= duck.x + duck.width && x >= duck.x
             && y <= duck.y + duck.height && y >= duck.y){
-            console.log('clicked');
+
+            return true;
         }
+
         return false;
     }
 
@@ -50,9 +52,9 @@ class Duck{
 
             let currentDistanceToStopPoint = squareOf(this.x - stopX)
                 + squareOf(this.y - stopY);
-            let distanceAfterMove = squareOf(this.x + this.moveX - stopX)
+            let distanceAfterStep = squareOf(this.x + this.moveX - stopX)
                 + squareOf(this.y + this.moveY - stopY)
-            if (distanceAfterMove > currentDistanceToStopPoint ) {
+            if (distanceAfterStep > currentDistanceToStopPoint ) {
                 this.stop();
             }
         }
