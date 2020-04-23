@@ -7,11 +7,12 @@ class Bread{
         this.num = Bread.count;
         this.x = x;
         this.y = y;
-        this.width = 10;
-        this.height = 10;
+        this.width = 20;
+        this.height = 20;
         this.moveX = 1;
         this.moveY = 0;
-        this.image = undefined;
+        this.image = new Image(this.width, this.height);
+        this.image.src = 'images/bread.png';
     }
 
     step(){
@@ -33,11 +34,12 @@ class Bread{
 
     draw(){
         context.beginPath();
-        context.rect(this.x - canvas.offsetLeft, this.y - canvas.offsetTop, this.width, this.height);
+        context.drawImage(this.image, this.x - canvas.offsetLeft, this.y - canvas.offsetTop);
         context.fillText(this.num.toString(), this.x - canvas.offsetLeft, this.y - canvas.offsetTop);
         context.stroke();
     }
 
+    // check if bread intersects with another rectangular object
     intersects(object){
         if(this.x + this.width >= object.x && this.x <= object.x + object.width
         && this.y + this.height >= object.y && this.y <= object.y + object.height){

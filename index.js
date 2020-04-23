@@ -1,8 +1,8 @@
 // initialize variables
 let canvas = document.querySelector('canvas');
 let context = canvas.getContext('2d');
-canvas.scrollX =  0;
-canvas.scrollY = -window.scrollY;
+/*canvas.scrollX =  0;
+canvas.scrollY = -window.scrollY;*/
 context.font = "10px Arial";
 let stopX = undefined;
 let stopY = undefined
@@ -11,6 +11,8 @@ leftBorder = 10;
 rightBorder = 10;
 topBorder = 30;
 bottomBorder = 10;
+
+let userScore = 0;
 
 // functions
 function updateData(){
@@ -21,6 +23,7 @@ function updateData(){
 
         if(bread.intersects(duck)){
             duck.breadCollide(bread);
+            userScore += 1;
         }
     }
 
@@ -35,6 +38,7 @@ function updateCanvas(){
     }
 
     duck.draw();
+    drawUserScore();
 }
 
 function adjustPointToCanvas(x,y,width,height)
@@ -64,22 +68,21 @@ function pointInCanvas(x, y){
     return false;
 }
 
-function onDuckClick(mouseEvent){
+function onCanvasClick(mouseEvent){
 
     if(duck.contains(mouseEvent.x, mouseEvent.y)){
         console.log('clicked');
     }
 
-    // move duck to where user clicks
+    // moves duck to where user clicks
+    let adjustedMouse = adjustPointToCanvas(mouseEvent.pageX, mouseEvent.pageY, duck.width, duck.height);
+    stopX = adjustedMouse.x;
+    stopY = adjustedMouse.y;
 
-        let adjustedMouse = adjustPointToCanvas(mouseEvent.pageX, mouseEvent.pageY, duck.width, duck.height);
-        stopX = adjustedMouse.x;
-        stopY = adjustedMouse.y;
+    let distanceToPoint = Math.sqrt(squareOf(duck.x - stopX) + squareOf(duck.y - stopY));
 
-        let distanceToPoint = Math.sqrt(squareOf(duck.x - stopX) + squareOf(duck.y - stopY));
-
-        duck.moveX = duck.speed * (stopX - duck.x) / distanceToPoint;
-        duck.moveY = duck.speed * (stopY - duck.y) / distanceToPoint;
+    duck.moveX = duck.speed * (stopX - duck.x) / distanceToPoint;
+    duck.moveY = duck.speed * (stopY - duck.y) / distanceToPoint;
 }
 
 function squareOf(num){
@@ -90,16 +93,20 @@ function myFunction(){
     console.log('hi');
 }
 
+function drawUserScore() {
+
+}
+
 // main
 let gameGrid = new GameGrid();
 let duck = new Duck();
 
 for (let i = 0; i < 50 ; i++) {
-    let x = Math.random()*(canvas.width - rightBorder - leftBorder - 10) + canvas.offsetLeft + leftBorder;
-    let y = Math.random()*(canvas.height - bottomBorder - topBorder - 10) + canvas.offsetTop + topBorder;
+    let x = Math.random()*(canvas.width - rightBorder - leftBorder - 20) + canvas.offsetLeft + leftBorder;
+    let y = Math.random()*(canvas.height - bottomBorder - topBorder - 20) + canvas.offsetTop + topBorder;
     Bread.allBreads.push(new Bread(x, y))
 }
 requestAnimationFrame(updateData);
 
 // event listeners
-canvas.addEventListener("mousedown", onDuckClick);
+canvas.addEventListener("mousedown", onCanvasClick);
