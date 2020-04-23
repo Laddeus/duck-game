@@ -4,11 +4,15 @@ class Duck{
         this.height = 50;
         this.image = new Image(this.width, this.height);
         this.image.src = 'images/duck.png';
+        this.reverseImage = new Image(this.width, this.height);
+        this.reverseImage.src = 'images/duckReverse.png';
+        this.currentImage = this.image;
         this.x = canvas.width / 2 + canvas.offsetLeft;
         this.y = canvas.height / 2 + canvas.offsetTop;
         this.moveX = 0;
         this.moveY = 0;
         this.speed = 5;
+        this.image
     }
 
     step(){
@@ -32,7 +36,7 @@ class Duck{
     }
 
     draw(){
-        context.drawImage(this.image, this.x - canvas.offsetLeft, this.y - canvas.offsetTop);
+        context.drawImage(this.currentImage, this.x - canvas.offsetLeft, this.y - canvas.offsetTop);
     }
 
     contains(x, y){
@@ -62,5 +66,13 @@ class Duck{
 
     breadCollide(bread){
         bread.destroy();
+    }
+
+    faceRight(){
+        this.currentImage = this.reverseImage;
+    }
+
+    faceLeft(){
+        this.currentImage = this.image;
     }
 }

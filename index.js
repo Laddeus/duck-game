@@ -89,6 +89,14 @@ function onCanvasClick(mouseEvent){
 
     duck.moveX = duck.speed * (stopX - duck.x) / distanceToPoint;
     duck.moveY = duck.speed * (stopY - duck.y) / distanceToPoint;
+
+    if(duck.moveX > 0){
+        duck.faceRight();
+    }
+    else{
+        duck.faceLeft();
+    }
+
 }
 
 function squareOf(num){
