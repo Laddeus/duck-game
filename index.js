@@ -90,8 +90,8 @@ let duck = new Duck();
 let allBreads = [];
 
 for (let i = 0; i < 50 ; i++) {
-    let x = Math.random()*(canvas.offsetLeft + canvas.width - rightBorder);
-    let y = Math.random()*(canvas.offsetTop + canvas.height - bottomBorder);
+    let x = Math.random()*(canvas.offsetLeft + canvas.width - rightBorder - 10) + canvas.offsetLeft + leftBorder;
+    let y = Math.random()*(canvas.offsetTop + canvas.height - bottomBorder - 10) + canvas.offsetTop + topBorder;
     allBreads.push(new Bread(x, y))
 }
 requestAnimationFrame(updateData);

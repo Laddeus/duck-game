@@ -4,7 +4,7 @@ class Bread{
         this.y = y;
         this.width = 10;
         this.height = 10;
-        this.moveX = 3;
+        this.moveX = 0;
         this.moveY = 0;
         this.image = undefined;
     }
