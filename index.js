@@ -3,7 +3,6 @@ let canvas = document.querySelector('canvas');
 let context = canvas.getContext('2d');
 /*canvas.scrollX =  0;
 canvas.scrollY = -window.scrollY;*/
-context.font = "10px Arial";
 let stopX = undefined;
 let stopY = undefined
 

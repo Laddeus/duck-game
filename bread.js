@@ -1,10 +1,7 @@
 class Bread{
 
     static allBreads = [];
-    static count = 0;
     constructor(x, y) {
-        Bread.count += 1;
-        this.num = Bread.count;
         this.x = x;
         this.y = y;
         this.width = 20;
@@ -27,15 +24,15 @@ class Bread{
 
     move(){
         this.step();
+        // if bread hit right wall of canvas
         if(this.x > canvas.offsetLeft + canvas.width - rightBorder - this.width){
-            this.x = canvas.offsetLeft + leftBorder;
+            this.destroy();
         }
     }
 
     draw(){
         context.beginPath();
         context.drawImage(this.image, this.x - canvas.offsetLeft, this.y - canvas.offsetTop);
-        context.fillText(this.num.toString(), this.x - canvas.offsetLeft, this.y - canvas.offsetTop);
         context.stroke();
     }
 
@@ -50,6 +47,7 @@ class Bread{
     }
 
     destroy(){
+        Bread.count -= 1;
         let indexOfBreadToDestroy = Bread.allBreads.indexOf(this);
         Bread.allBreads.splice(indexOfBreadToDestroy, 1);
         console.log('bread with id number ' + this.num + ' has been destroyed');
