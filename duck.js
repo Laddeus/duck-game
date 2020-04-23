@@ -54,10 +54,10 @@ class Duck{
         // check if need to stop
         if (stopX != undefined && stopY != undefined) {
 
-            let currentDistanceToStopPoint = squareOf(this.x + this.width / 2 - stopX)
-                + squareOf(this.y + this.height / 2- stopY);
-            let distanceAfterStep = squareOf(this.x + this.width/2+ this.moveX - stopX)
-                + squareOf(this.y +this.height/2 + this.moveY - stopY)
+            let currentDistanceToStopPoint = squareOf(this.x - stopX)
+                + squareOf(this.y - stopY);
+            let distanceAfterStep = squareOf(this.x + this.moveX - stopX)
+                + squareOf(this.y + this.moveY - stopY)
             if (distanceAfterStep > currentDistanceToStopPoint ) {
                 this.stop();
             }
