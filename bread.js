@@ -8,7 +8,7 @@ class Bread{
         this.y = y;
         this.width = 10;
         this.height = 10;
-        this.moveX = 0;
+        this.moveX = 1;
         this.moveY = 0;
         this.image = undefined;
     }
@@ -25,6 +25,9 @@ class Bread{
 
     move(){
         this.step();
+        if(this.x > canvas.offsetLeft + canvas.width - rightBorder - this.width){
+            this.x = canvas.offsetLeft + leftBorder;
+        }
     }
 
     draw(){
