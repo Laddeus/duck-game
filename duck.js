@@ -1,7 +1,7 @@
 class Duck{
     constructor() {
-        this.width = 80
-        this.height = 50;
+        this.width = 129;
+        this.height = 53;
         this.image = new Image(this.width, this.height);
         this.image.src = 'images/duck.png';
         this.reverseImage = new Image(this.width, this.height);
