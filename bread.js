@@ -1,5 +1,6 @@
 class Bread{
 
+    static allBreads = [];
     static count = 0;
     constructor(x, y) {
         Bread.count += 1;
@@ -35,5 +36,20 @@ class Bread{
         context.rect(this.x - canvas.offsetLeft, this.y - canvas.offsetTop, this.width, this.height);
         context.fillText(this.num.toString(), this.x - canvas.offsetLeft, this.y - canvas.offsetTop);
         context.stroke();
+    }
+
+    intersects(object){
+        if(this.x + this.width >= object.x && this.x <= object.x + object.width
+        && this.y + this.height >= object.y && this.y <= object.y + object.height){
+            return true;
+        }
+
+        return false;
+    }
+
+    destroy(){
+        let indexOfBreadToDestroy = Bread.allBreads.indexOf(this);
+        Bread.allBreads.splice(indexOfBreadToDestroy, 1);
+        console.log('bread with id number ' + this.num + ' has been destroyed');
     }
 }

@@ -37,8 +37,8 @@ class Duck{
 
     contains(x, y){
         // if point is within duck's rectangle
-        if(x <= duck.x + duck.width && x >= duck.x
-            && y <= duck.y + duck.height && y >= duck.y){
+        if(x <= this.x + this.width && x >= this.x
+            && y <= this.y + this.height && y >= this.y){
 
             return true;
         }
@@ -58,5 +58,9 @@ class Duck{
                 this.stop();
             }
         }
+    }
+
+    breadCollide(bread){
+        bread.destroy();
     }
 }

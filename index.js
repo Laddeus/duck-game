@@ -16,8 +16,12 @@ bottomBorder = 10;
 function updateData(){
     duck.move();
 
-    for (let bread of allBreads) {
-        bread.move();
+    for (let bread of Bread.allBreads) {
+        bread.move()
+
+        if(bread.intersects(duck)){
+            duck.breadCollide(bread);
+        }
     }
 
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -26,7 +30,7 @@ function updateData(){
 }
 
 function updateCanvas(){
-    for (let bread of allBreads) {
+    for (let bread of Bread.allBreads) {
         bread.draw();
     }
 
@@ -89,12 +93,11 @@ function myFunction(){
 // main
 let gameGrid = new GameGrid();
 let duck = new Duck();
-let allBreads = [];
 
 for (let i = 0; i < 50 ; i++) {
     let x = Math.random()*(canvas.width - rightBorder - leftBorder - 10) + canvas.offsetLeft + leftBorder;
     let y = Math.random()*(canvas.height - bottomBorder - topBorder - 10) + canvas.offsetTop + topBorder;
-    allBreads.push(new Bread(x, y))
+    Bread.allBreads.push(new Bread(x, y))
 }
 requestAnimationFrame(updateData);
 
