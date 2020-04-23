@@ -52,14 +52,14 @@ function adjustPointToCanvas(x,y,width,height)
     let newX = x;
     let newY = y;
     // If to the RIGHT of workable area of canvas, make X coordinate = rightmost X coordinate possible
-    if(x + width > canvas.offsetLeft + canvas.width - rightBorder - leftBorder)
-    { newX = canvas.offsetLeft+canvas.width-rightBorder-width; }
+    if(x + width/2 > canvas.offsetLeft + canvas.width - rightBorder - leftBorder)
+    { newX = canvas.offsetLeft+canvas.width-rightBorder-width/2; }
     // and for LEFT
-    if(x < canvas.offsetLeft + leftBorder) {   newX = canvas.offsetLeft+leftBorder;}
+    if(x < canvas.offsetLeft + leftBorder) {   newX = canvas.offsetLeft+leftBorder + width/2;}
     // and for bottom (idk why but offset fucks it up!)
-    if(y + height > canvas.offsetTop + canvas.height - bottomBorder) { newY = canvas.height+canvas.offsetTop-bottomBorder-height; }
+    if(y + height/2 > canvas.offsetTop + canvas.height - bottomBorder) { newY = canvas.height+canvas.offsetTop-bottomBorder-height/2; }
     // and for top
-    if(y < canvas.offsetTop + topBorder) {  newY = canvas.offsetTop+topBorder;}
+    if(y < canvas.offsetTop + topBorder) {  newY = canvas.offsetTop+topBorder + height/2;}
     
     return { x:newX, y:newY }
     
