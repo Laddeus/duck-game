@@ -12,7 +12,11 @@ bottomBorder = 10;
 // functions
 function updateData(){
     duck.move();
-    bread.move();
+
+    for (let bread of allBreads) {
+        bread.move();
+    }
+
     context.clearRect(0, 0, canvas.width, canvas.height);
     updateCanvas();
     requestAnimationFrame(updateData);
@@ -20,7 +24,10 @@ function updateData(){
 
 function updateCanvas(){
     duck.draw();
-    bread.draw();
+
+    for (let bread of allBreads) {
+        bread.draw();
+    }
 }
 
 function adjustPointToCanvas(x,y,width,height)
@@ -80,7 +87,13 @@ function myFunction(){
 // main
 let gameGrid = new GameGrid();
 let duck = new Duck();
-let bread = new Bread(500, 500);
+let allBreads = [];
+
+for (let i = 0; i < 50 ; i++) {
+    let x = Math.random()*(canvas.offsetLeft + canvas.width - rightBorder);
+    let y = Math.random()*(canvas.offsetTop + canvas.height - bottomBorder);
+    allBreads.push(new Bread(x, y))
+}
 requestAnimationFrame(updateData);
 
 // event listeners
