@@ -9,7 +9,7 @@ let stopY = undefined
 leftBorder = 10;
 rightBorder = 10;
 topBorder = 50;
-bottomBorder = 200;
+bottomBorder = 140;
 
 let userScore = 0;
 let timer = 0;
@@ -56,9 +56,9 @@ function adjustPointToCanvas(x,y,width,height)
     { newX = canvas.offsetLeft+canvas.width-rightBorder-width; }
     // and for LEFT
     if(x < canvas.offsetLeft + leftBorder) {   newX = canvas.offsetLeft+leftBorder;}
-    // and for TOP (idk why but offset fucks it up!)
-    if(y + height > canvas.offsetTop + canvas.height - bottomBorder) { newY = canvas.height+topBorder+bottomBorder-height; }
-    // and for BOTTOM
+    // and for bottom (idk why but offset fucks it up!)
+    if(y + height > canvas.offsetTop + canvas.height - bottomBorder) { newY = canvas.height+canvas.offsetTop-bottomBorder-height; }
+    // and for top
     if(y < canvas.offsetTop + topBorder) {  newY = canvas.offsetTop+topBorder;}
     
     return { x:newX, y:newY }
