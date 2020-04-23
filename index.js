@@ -1,6 +1,8 @@
 // initialize variables
 let canvas = document.querySelector('canvas');
 let context = canvas.getContext('2d');
+canvas.scrollX =  0;
+canvas.scrollY = -window.scrollY;
 context.font = "10px Arial";
 let stopX = undefined;
 let stopY = undefined
@@ -24,11 +26,11 @@ function updateData(){
 }
 
 function updateCanvas(){
-    duck.draw();
-
     for (let bread of allBreads) {
         bread.draw();
     }
+
+    duck.draw();
 }
 
 function adjustPointToCanvas(x,y,width,height)
@@ -60,14 +62,13 @@ function pointInCanvas(x, y){
 
 function onDuckClick(mouseEvent){
 
-    let mousetmp = adjustPointToCanvas(mouseEvent.x, mouseEvent.y, 100,100);
     if(duck.contains(mouseEvent.x, mouseEvent.y)){
         console.log('clicked');
     }
 
     // move duck to where user clicks
 
-        let adjustedMouse = adjustPointToCanvas(mouseEvent.x, mouseEvent.y, duck.width, duck.height);
+        let adjustedMouse = adjustPointToCanvas(mouseEvent.pageX, mouseEvent.pageY, duck.width, duck.height);
         stopX = adjustedMouse.x;
         stopY = adjustedMouse.y;
 
