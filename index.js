@@ -48,10 +48,23 @@ class Duck{
         this.speed = 5;
     }
 
-    move() {
+    step(){
         this.x += this.moveX;
         this.y += this.moveY;
+    }
 
+    stepBack(){
+        this.x -= this.moveX;
+        this.y -= this.moveY;
+    }
+
+    stop(){
+        this.moveX = 0;
+        this.moveY = 0;
+    }
+
+    move() {
+        this.step();
         this.checkIfReachedStopPoint();
     }
 
@@ -80,8 +93,7 @@ class Duck{
             let distanceAfterMove = squareOf(this.x + this.moveX + canvas.offsetLeft - stopX)
                 + squareOf(this.y + this.moveY + canvas.offsetTop - stopY)
             if (distanceAfterMove > currentDistanceToStopPoint ) {
-                this.moveX = 0;
-                this.moveY = 0;
+                this.stop();
             }
         }
     }
@@ -102,11 +114,11 @@ function updateCanvas(){
 
 function adjustPointToCanvas(x,y,width,height)
 {
-    var newX, newY;
-    newX = x;
-    newY = y;
+    let newX = x;
+    let newY = y;
     // If to the RIGHT of workable area of canvas, make X coordinate = rightmost X coordinate possible
-    if(x + width > canvas.offsetLeft + canvas.width - rightBorder - leftBorder) { newX = canvas.offsetLeft+canvas.width-rightBorder-width; }
+    if(x + width > canvas.offsetLeft + canvas.width - rightBorder - leftBorder)
+    { newX = canvas.offsetLeft+canvas.width-rightBorder-width; }
     // and for LEFT
     if(x < canvas.offsetLeft + leftBorder) {   newX = canvas.offsetLeft+leftBorder;}
     // and for TOP (idk why but offset fucks it up!)
@@ -129,14 +141,14 @@ function pointInCanvas(x, y){
 
 function onDuckClick(mouseEvent){
     
-    var mousetmp = adjustPointToCanvas(mouseEvent.x, mouseEvent.y, 100,100);
+    let mousetmp = adjustPointToCanvas(mouseEvent.x, mouseEvent.y, 100,100);
     if(duck.contains(mouseEvent.x, mouseEvent.y)){
         console.log('clicked');
     }
 
     // move duck to where user clicks
 
-        var adjustedMouse = adjustPointToCanvas(mouseEvent.x, mouseEvent.y, duck.width, duck.height);
+        let adjustedMouse = adjustPointToCanvas(mouseEvent.x, mouseEvent.y, duck.width, duck.height);
         stopX = adjustedMouse.x;
         stopY = adjustedMouse.y;
         
@@ -147,8 +159,7 @@ function onDuckClick(mouseEvent){
 
         duck.moveX = duck.speed * (stopX - duckX) / distanceToPoint;
         duck.moveY = duck.speed * (stopY - duckY) / distanceToPoint;
-    
-    }
+}
 
 function squareOf(num){
     return num*num;
