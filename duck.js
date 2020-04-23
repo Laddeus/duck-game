@@ -35,7 +35,7 @@ class Duck{
     }
 
     draw(){
-        context.drawImage(this.currentImage, this.left(), this.top());
+        context.drawImage(this.currentImage, this.left() - canvas.offsetLeft, this.top() - canvas.offsetTop);
     }
 
     contains(x, y){
