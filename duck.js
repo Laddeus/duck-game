@@ -12,7 +12,6 @@ class Duck{
         this.moveX = 0;
         this.moveY = 0;
         this.speed = 5;
-        this.image
     }
 
     step(){
@@ -36,13 +35,13 @@ class Duck{
     }
 
     draw(){
-        context.drawImage(this.currentImage, this.x - canvas.offsetLeft, this.y - canvas.offsetTop);
+        context.drawImage(this.currentImage, this.left(), this.top());
     }
 
     contains(x, y){
         // if point is within duck's rectangle
-        if(x <= this.x + this.width && x >= this.x
-            && y <= this.y + this.height && y >= this.y){
+        if(x <= this.x + this.width/2 && x >= this.x - this.width/2
+            && y <= this.y + this.height/2 && y >= this.y - this.width/2){
 
             return true;
         }
@@ -74,5 +73,21 @@ class Duck{
 
     faceLeft(){
         this.currentImage = this.image;
+    }
+    
+    left(){
+        return this.x - this.width/2;
+    }
+    
+    right(){
+        return this.x + this.width/2;
+    }
+    
+    top(){
+        return this.y - this.height/2;
+    }
+    
+    bottom(){
+        return this.y + this.height/2;
     }
 }

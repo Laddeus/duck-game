@@ -25,21 +25,21 @@ class Bread{
     move(){
         this.step();
         // if bread hit right wall of canvas
-        if(this.x > canvas.offsetLeft + canvas.width - rightBorder - this.width){
+        if(this.right() > canvas.offsetLeft + canvas.width - rightBorder){
             this.destroy();
         }
     }
 
     draw(){
         context.beginPath();
-        context.drawImage(this.image, this.x - canvas.offsetLeft, this.y - canvas.offsetTop);
+        context.drawImage(this.image, this.left() - canvas.offsetLeft, this.top() - canvas.offsetTop);
         context.stroke();
     }
 
     // check if bread intersects with another rectangular object
     intersects(object){
-        if(this.x + this.width >= object.x && this.x <= object.x + object.width
-        && this.y + this.height >= object.y && this.y <= object.y + object.height){
+        if(this.right() >= object.left() && this.left() <= object.right()
+        && this.bottom() >= object.top() && this.top() <= object.bottom()){
             return true;
         }
 
@@ -50,5 +50,21 @@ class Bread{
         Bread.count -= 1;
         let indexOfBreadToDestroy = Bread.allBreads.indexOf(this);
         Bread.allBreads.splice(indexOfBreadToDestroy, 1);
+    }
+
+    left(){
+        return this.x - this.width/2;
+    }
+
+    right(){
+        return this.x + this.width/2;
+    }
+
+    top(){
+        return this.y - this.height/2;
+    }
+
+    bottom(){
+        return this.y + this.height/2;
     }
 }

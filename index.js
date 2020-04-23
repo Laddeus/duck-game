@@ -87,11 +87,8 @@ function onCanvasClick(mouseEvent){
     
     if(adjustedMouse.y > canvas.offsetTop + canvas.height-bottomBorder) { return console.log('clicked button area!');}
     
-    
     stopX = adjustedMouse.x;
     stopY = adjustedMouse.y;
-    
-    
 
     let distanceToPoint = Math.sqrt(squareOf(duck.x - stopX) + squareOf(duck.y - stopY));
 
@@ -135,8 +132,8 @@ function updateTimer() {
 }
 
 function spawnBread(){
-    let x = Math.random()*(canvas.width - rightBorder - leftBorder - 20) + canvas.offsetLeft + leftBorder;
-    let y = Math.random()*(canvas.height - bottomBorder - topBorder - 20) + canvas.offsetTop + topBorder;
+    let x = Math.random()*(canvas.width - rightBorder - leftBorder - 10) + canvas.offsetLeft + leftBorder;
+    let y = Math.random()*(canvas.height - bottomBorder - topBorder - 10) + canvas.offsetTop + topBorder;
     Bread.allBreads.push(new Bread(x, y))
     timer +=1;
     updateTimer();
