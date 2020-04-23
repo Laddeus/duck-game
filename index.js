@@ -12,6 +12,11 @@ topBorder = 30;
 bottomBorder = 10;
 
 let userScore = 0;
+let timer = 0;
+let amountOfBreadCaught = 0;
+let scoreElement = document.getElementById('score');
+let timerElement = document.getElementById('time');
+let breadElement = document.getElementById('bread');
 
 // functions
 function updateData(){
@@ -22,12 +27,15 @@ function updateData(){
 
         if(bread.intersects(duck)){
             duck.breadCollide(bread);
-            userScore += 1;
+            userScore += 5;
+            amountOfBreadCaught += 1;
         }
     }
 
     context.clearRect(0, 0, canvas.width, canvas.height);
     updateCanvas();
+    updateUserScore();
+    updateBreadCaught();
     requestAnimationFrame(updateData);
 }
 
@@ -37,7 +45,6 @@ function updateCanvas(){
     }
 
     duck.draw();
-    drawUserScore();
 }
 
 function adjustPointToCanvas(x,y,width,height)
@@ -92,7 +99,22 @@ function myFunction(){
     console.log('hi');
 }
 
-function drawUserScore() {
+function updateUserScore() {
+    scoreElement.textContent = 'Score: ' + userScore;
+}
+
+function updateBreadCaught(){
+    breadElement.textContent = 'Bread: ' + amountOfBreadCaught;
+}
+
+function updateTimer() {
+    let seconds = timer % 60;
+    let minutes = (Math.floor(timer / 60))%60;
+    let hours = Math.floor((Math.floor(timer / 60))/60);
+    let timerText = 'Time: ' + (hours < 10 ? '0' + hours : hours) + ':' + (minutes < 10 ? '0' + minutes : minutes)
+    + ':' + (seconds < 10 ? '0' + seconds : seconds)
+
+    timerElement.textContent = timerText;
 
 }
 
@@ -100,7 +122,10 @@ function spawnBread(){
     let x = Math.random()*(canvas.width - rightBorder - leftBorder - 20) + canvas.offsetLeft + leftBorder;
     let y = Math.random()*(canvas.height - bottomBorder - topBorder - 20) + canvas.offsetTop + topBorder;
     Bread.allBreads.push(new Bread(x, y))
+    timer +=1;
+    updateTimer();
 }
+
 
 // main
 let gameGrid = new GameGrid();
