@@ -1,6 +1,7 @@
 // initialize variables
 let canvas = document.querySelector('canvas');
 let context = canvas.getContext('2d');
+context.font = "10px Arial";
 let stopX = undefined;
 let stopY = undefined
 

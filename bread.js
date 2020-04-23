@@ -1,5 +1,9 @@
 class Bread{
+
+    static count = 0;
     constructor(x, y) {
+        Bread.count += 1;
+        this.num = Bread.count;
         this.x = x;
         this.y = y;
         this.width = 10;
@@ -26,6 +30,7 @@ class Bread{
     draw(){
         context.beginPath();
         context.rect(this.x - canvas.offsetLeft, this.y - canvas.offsetTop, this.width, this.height);
+        context.fillText(this.num.toString(), this.x - canvas.offsetLeft, this.y - canvas.offsetTop);
         context.stroke();
     }
 }
