@@ -97,16 +97,18 @@ function drawUserScore() {
 
 }
 
-// main
-let gameGrid = new GameGrid();
-let duck = new Duck();
-
-for (let i = 0; i < 50 ; i++) {
+function spawnBread(){
     let x = Math.random()*(canvas.width - rightBorder - leftBorder - 20) + canvas.offsetLeft + leftBorder;
     let y = Math.random()*(canvas.height - bottomBorder - topBorder - 20) + canvas.offsetTop + topBorder;
     Bread.allBreads.push(new Bread(x, y))
 }
+
+// main
+let gameGrid = new GameGrid();
+let duck = new Duck();
+
 requestAnimationFrame(updateData);
+setInterval(spawnBread, 1000);
 
 // event listeners
 canvas.addEventListener("mousedown", onCanvasClick);
