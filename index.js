@@ -55,14 +55,13 @@ function adjustPointToCanvas(x,y,width,height)
     if(x + width/2 > canvas.offsetLeft + canvas.width - rightBorder - leftBorder)
     { newX = canvas.offsetLeft+canvas.width-rightBorder-width/2; }
     // and for LEFT
-    if(x < canvas.offsetLeft + leftBorder) {   newX = canvas.offsetLeft+leftBorder + width/2;}
+    if(x < canvas.offsetLeft + leftBorder + width/2) {   newX = canvas.offsetLeft+leftBorder + width/2;}
     // and for bottom (idk why but offset fucks it up!)
     if(y + height/2 > canvas.offsetTop + canvas.height - bottomBorder) { newY = canvas.height+canvas.offsetTop-bottomBorder-height/2; }
     // and for top
-    if(y < canvas.offsetTop + topBorder) {  newY = canvas.offsetTop+topBorder + height/2;}
-    
+    if(y < canvas.offsetTop + topBorder + height/2) {  newY = canvas.offsetTop+topBorder + height/2;}
+
     return { x:newX, y:newY }
-    
 }
 
 function pointInCanvas(x, y){
@@ -139,6 +138,13 @@ function spawnBread(){
     updateTimer();
 }
 
+function pauseUpdateTimer() {
+    clearInterval(updateTimer);
+}
+
+function unpauseUpdateTimer() {
+    setInterval(updateTimer, 1000);
+}
 
 // main
 let gameGrid = new GameGrid();
@@ -149,3 +155,5 @@ setInterval(spawnBread, 1000);
 
 // event listeners
 canvas.addEventListener("mousedown", onCanvasClick);
+window.addEventListener('focusout', pauseUpdateTimer);
+window.addEventListener('focusin', unpauseUpdateTimer);
