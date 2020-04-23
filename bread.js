@@ -50,6 +50,5 @@ class Bread{
         Bread.count -= 1;
         let indexOfBreadToDestroy = Bread.allBreads.indexOf(this);
         Bread.allBreads.splice(indexOfBreadToDestroy, 1);
-        console.log('bread with id number ' + this.num + ' has been destroyed');
     }
 }

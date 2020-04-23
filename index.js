@@ -85,7 +85,7 @@ function onCanvasClick(mouseEvent){
     // moves duck to where user clicks
     let adjustedMouse = adjustPointToCanvas(mouseEvent.pageX, mouseEvent.pageY, duck.width, duck.height);
     
-    if(adjustedMouse.y > canvas.height-bottomBorder) { return console.log('clicked button area!');}
+    if(adjustedMouse.y > canvas.offsetTop + canvas.height-bottomBorder) { return console.log('clicked button area!');}
     
     
     stopX = adjustedMouse.x;
