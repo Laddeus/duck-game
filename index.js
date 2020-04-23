@@ -6,7 +6,7 @@ let stopY = undefined
 leftBorder = 10;
 rightBorder = 10;
 topBorder = 30;
-bottomBorder = 10;;
+bottomBorder = 10;
 
 
 // classes
@@ -52,25 +52,7 @@ class Duck{
         this.x += this.moveX;
         this.y += this.moveY;
 
-        this.checkBoundaries();
         this.checkIfReachedStopPoint();
-    }
-
-    checkBoundaries() {
-        let duckX = this.x + canvas.offsetLeft;
-        let duckY = this.y + canvas.offsetTop;
-
-        if(duckX + this.width > canvas.offsetLeft + canvas.width - rightBorder){
-            this.x -= this.moveX;
-            this.y -= this.moveY;
-
-            this.moveX = 0;
-            this.moveY = 0;
-
-            return false;
-        }
-
-        return true;
     }
 
     draw(){
@@ -118,6 +100,24 @@ function updateCanvas(){
     duck.draw();
 }
 
+function adjustPointToCanvas(x,y,width,height)
+{
+    var newX, newY;
+    newX = x;
+    newY = y;
+    // If to the RIGHT of workable area of canvas, make X coordinate = rightmost X coordinate possible
+    if(x + width > canvas.offsetLeft + canvas.width - rightBorder - leftBorder) { newX = canvas.offsetLeft+canvas.width-rightBorder-width; }
+    // and for LEFT
+    if(x < canvas.offsetLeft + leftBorder) {   newX = canvas.offsetLeft+leftBorder;}
+    // and for TOP (idk why but offset fucks it up!)
+    if(y + height > canvas.offsetTop + canvas.height - bottomBorder) { newY = canvas.height+topBorder+bottomBorder-height; }
+    // and for BOTTOM
+    if(y < canvas.offsetTop + topBorder) {  newY = canvas.offsetTop+topBorder;}
+    
+    return { x:newX, y:newY }
+    
+}
+
 function pointInCanvas(x, y){
     if(x <= canvas.offsetLeft + canvas.width - rightBorder && x >= canvas.offsetLeft + leftBorder
     && y <= canvas.offsetTop + canvas.height - bottomBorder && y >= canvas.offsetTop + topBorder){
@@ -128,22 +128,26 @@ function pointInCanvas(x, y){
 }
 
 function onDuckClick(mouseEvent){
+    
+    var mousetmp = adjustPointToCanvas(mouseEvent.x, mouseEvent.y, 100,100);
     if(duck.contains(mouseEvent.x, mouseEvent.y)){
         console.log('clicked');
     }
 
     // move duck to where user clicks
-    if(pointInCanvas(mouseEvent.x, mouseEvent.y)) {
-        stopX = mouseEvent.x;
-        stopY = mouseEvent.y;
+
+        var adjustedMouse = adjustPointToCanvas(mouseEvent.x, mouseEvent.y, duck.width, duck.height);
+        stopX = adjustedMouse.x;
+        stopY = adjustedMouse.y;
+        
 
         let duckX = duck.x + canvas.offsetLeft;
         let duckY = duck.y + canvas.offsetTop;
         let distanceToPoint = Math.sqrt(squareOf(duckX - stopX) + squareOf(duckY - stopY));
 
-        duck.moveX = duck.speed * (mouseEvent.x - duckX) / distanceToPoint;
-        duck.moveY = duck.speed * (mouseEvent.y - duckY) / distanceToPoint;
-    }
+        duck.moveX = duck.speed * (stopX - duckX) / distanceToPoint;
+        duck.moveY = duck.speed * (stopY - duckY) / distanceToPoint;
+    
     }
 
 function squareOf(num){
