@@ -136,7 +136,7 @@ function btnFrog(){
 }
 
 function btnJet(){
-    duck.jetpack = true;
+    duck.addJetpack();
 
 }
 
@@ -157,10 +157,9 @@ let duck = new Duck(canvas.width / 2 + canvas.offsetLeft,
     93, 44,
     'images/duck.png',
     'images/duckReverse.png',
-    'images/jetDuck.png',
-    'images/jetDuckReverse.png',
     0, 0,
-    5);
+    5,
+);
 requestAnimationFrame(updateData);
 
 let itemSelected = null;

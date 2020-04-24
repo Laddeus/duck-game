@@ -1,5 +1,5 @@
 class Duck{
-    constructor(x, y, width, height, imageSrc, reverseImageSrc, imageJetSrc, reverseImageJetSrc, initialMoveX, initialMoveY, speed) {
+    constructor(x, y, width, height, imageSrc, reverseImageSrc, initialMoveX, initialMoveY, speed) {
         this.jetpack = false;
         this.width = width;
         this.height = height;
@@ -8,9 +8,9 @@ class Duck{
         this.reverseImage = new Image(this.width, this.height);
         this.reverseImage.src = reverseImageSrc;
         this.jetImage = new Image(this.width, this.height);
-        this.jetImage.src = imageJetSrc;
+        this.jetImage.src = 'images/jetDuck.png';
         this.jetReverseImage = new Image(this.width, this.height);
-        this.jetReverseImage.src = reverseImageJetSrc;    
+        this.jetReverseImage.src = 'images/jetDuckReverse.png';    
         
         this.currentImage = this.image;
         this.x = x;
@@ -32,6 +32,11 @@ class Duck{
             this.x += this.moveX/2;
             this.y += this.moveY/2;
         }
+    }
+    
+    addJetpack() {
+        this.jetpack = true;
+        this.faceLeft();
     }
 
     stepBack(){
