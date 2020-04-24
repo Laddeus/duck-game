@@ -25,12 +25,12 @@ class Duck{
 
     step(){
         if(this.jetpack) {
-            this.x += this.moveX*2;
-            this.y += this.moveY*2;  
+            this.x += this.moveX;
+            this.y += this.moveY;  
         }
         else {
-            this.x += this.moveX;
-            this.y += this.moveY;
+            this.x += this.moveX/2;
+            this.y += this.moveY/2;
         }
     }
 
