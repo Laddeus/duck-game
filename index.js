@@ -40,6 +40,12 @@ function updateData(){
 }
 
 function updateCanvas(){
+    for (let i = 0; i < gameGrid.canvasGrid.length; i++) {
+        for (let j = 0; j < gameGrid.canvasGrid[i].length; j++) {
+            gameGrid.canvasGrid[i][j].draw();
+        }
+    }
+
     if(itemSelected != null){
         itemSelected.draw();
     }
@@ -50,11 +56,7 @@ function updateCanvas(){
     duck.draw();
 
 
-    for (let i = 0; i < gameGrid.canvasGrid.length; i++) {
-        for (let j = 0; j < gameGrid.canvasGrid[i].length; j++) {
-            gameGrid.canvasGrid[i][j].draw();
-        }
-    }
+
 }
 
 function adjustPointToCanvas(x,y,width,height)
@@ -93,7 +95,7 @@ function onCanvasClick(mouseEvent){
 
     if(itemSelected != null){
         let selectedSquare = gameGrid.getSquare(mouseEvent.pageX, mouseEvent.pageY);
-        selectedSquare.object = itemSelected;
+        selectedSquare.addObject(itemSelected);
         itemSelected = null;
     }
     else{
@@ -166,8 +168,9 @@ function unpauseUpdateTimer() {
 
 function onMouseMove(mouseEvent){
     if(itemSelected != null){
-        itemSelected.x = mouseEvent.pageX;
-        itemSelected.y = mouseEvent.pageY;
+        let currentSquare = gameGrid.getSquare(mouseEvent.pageX, mouseEvent.pageY);
+        itemSelected.x = currentSquare.x;
+        itemSelected.y = currentSquare.y;
     }
 }
 

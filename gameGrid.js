@@ -1,13 +1,21 @@
+objectWidth = 25;
+objectHeight = 25;
+
 class Square{
     constructor(x, y) {
-        this.width = 25;
-        this.height = 25;
-        this.x = x + this.width/2;
+        this.width = objectWidth;
+        this.height = objectHeight;
+        this.x = x +this.width/2;
         this.y = y + this.height/2;
         this.object = undefined;
     }
 
     draw(){
+        context.globalAlpha = 0.2;
+        context.beginPath();
+        context.rect(this.left() - canvas.offsetLeft, this.top() - canvas.offsetTop, this.width, this.height);
+        context.stroke();
+        context.globalAlpha = 1;
         if(this.object != undefined){
             this.object.draw();
         }
@@ -28,6 +36,12 @@ class Square{
     bottom(){
         return this.y + this.height/2;
     }
+
+    addObject(object){
+        this.object = object;
+        this.object.x = this.x;
+        this.object.y = this.y;
+    }
 }
 
 class GameGrid{
@@ -39,12 +53,14 @@ class GameGrid{
         for (let i = 0; i < gridRowSize ; i++) {
             this.canvasGrid[i]= new Array(gridColumnSize);
             for (let j = 0; j < gridColumnSize ; j++) {
-                this.canvasGrid[i][j] = new Square(j*25 + canvas.offsetLeft + leftBorder, i*25 + canvas.offsetTop + topBorder);
+                this.canvasGrid[i][j] = new Square(j*25 + canvas.offsetLeft + leftBorder , i*25 + canvas.offsetTop + topBorder);
             }
         }
     }
 
     getSquare(x, y){
-        return this.canvasGrid[Math.round((y - canvas.offsetTop - topBorder)/25)][Math.round((x -canvas.offsetLeft - leftBorder)/25)];
+        let adjustedY = Math.round((y - canvas.offsetTop - topBorder - objectHeight/2)/25);
+        let adjustedX = Math.round((x -canvas.offsetLeft - leftBorder - objectWidth/2)/25);
+        return this.canvasGrid[adjustedY][adjustedX];
     }
 }
