@@ -139,8 +139,8 @@ function btnTurtle(){
     Turtle.allTurtles.push(new Turtle(canvas.width / 2 + canvas.offsetLeft,
         canvas.height / 2 + canvas.offsetTop,
         50, 50,
-        'images/turtle.png',
         'images/turtleReverse.png',
+        'images/turtle.png',
         0, 0,
         1.2));
 }

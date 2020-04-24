@@ -20,6 +20,14 @@ class Turtle extends Duck{
 
             this.moveX = this.speed * (this.stopX - this.x) / distanceToClosestBread;
             this.moveY = this.speed * (this.stopY - this.y) / distanceToClosestBread;
+
+            if(this.moveX > 0){
+                this.faceRight();
+            }
+            else{
+                this.faceLeft();
+            }
+
         }
         else{
             this.stop();
