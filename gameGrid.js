@@ -9,20 +9,16 @@ class Square{
         this.y = y;
         this.object = undefined;
         this.isTopLeft = false;
-        this.color = 'white';
     }
 
     draw(){
         context.globalAlpha = 0.1;
         context.setLineDash([3, 3]);
-        context.fillStyle = this.color;
         context.beginPath();
-        context.rect(this.x - canvas.offsetLeft, this.y - canvas.offsetTop, this.width, this.height);
-        context.fillRect(this.x - canvas.offsetLeft, this.y - canvas.offsetTop, this.width, this.height);
+        context.rect(this.left() - canvas.offsetLeft, this.top() - canvas.offsetTop, this.width, this.height);
         context.stroke();
         context.globalAlpha = 1;
         context.setLineDash([0,0]);
-        context.fillStyle = 'white';
 
         if(this.object != undefined && this.isTopLeft == true){
             this.object.draw();
@@ -30,19 +26,19 @@ class Square{
     }
 
     left(){
-        return this.x - this.width/2;
+        return this.x;
     }
 
     right(){
-        return this.x + this.width/2;
+        return this.x + this.width;
     }
 
     top(){
-        return this.y - this.height/2;
+        return this.y;
     }
 
     bottom(){
-        return this.y + this.height/2;
+        return this.y + this.height;
     }
 
     addObjectToSquare(object){
@@ -55,10 +51,9 @@ class Square{
 }
 
 class GameGrid{
-    static Objects = [];
     constructor() {
-        let gridRowSize = Math.round((canvas.height - bottomBorder - topBorder*2)/25);
-        let gridColumnSize = Math.round((canvas.width - leftBorder - rightBorder)/25)
+        let gridRowSize = Math.round((canvas.height - bottomBorder - topBorder*2)/squareHeight);
+        let gridColumnSize = Math.round((canvas.width - leftBorder - rightBorder)/squareWidth)
 
         this.canvasGrid = new Array(gridRowSize);
         for (let i = 0; i < gridRowSize ; i++) {
@@ -91,23 +86,12 @@ class GameGrid{
         squareToOccupy.setTopLeft(true);
 
         x += squareWidth;
-        for (let i = 0; i < rows; i++) {
-            if(i > 0){
-                x = object.left();
+        for (y; y < object.top() + rows * squareHeight; y += squareHeight) {
+            for (x; x < object.left() + cols-1 * squareWidth; x += squareWidth) {
+                squareToOccupy = this.getSquare(x, y);
+                squareToOccupy.addObjectToSquare(object);
             }
-            for (let j = 0; j < cols; j++) {
-                if(i == 0 && j == 0){
-                    continue;
-                }
-                else{
-                    squareToOccupy = this.getSquare(x, y);
-                    squareToOccupy.addObjectToSquare(object);
-                    x += squareWidth;
-                }
-
-
-            }
-            y += squareHeight;
+            x = object.left();
         }
     }
 }

@@ -22,9 +22,7 @@ let breadElement = document.getElementById('bread');
 // functions
 function updateData(){
     duck.move();
-
     checkBreadCollisionWithObjects();
-
 
     context.clearRect(0, 0, canvas.width, canvas.height);
     updateCanvas();
@@ -172,8 +170,8 @@ function onMouseMove(mouseEvent){
     if(itemSelected != null) {
         let currentSquare = gameGrid.getSquare(mouseEvent.pageX, mouseEvent.pageY);
         if(currentSquare != undefined) {
-            itemSelected.x = currentSquare.x + itemSelected.width/(itemSelected.width / squareWidth);
-            itemSelected.y = currentSquare.y + itemSelected.height/(itemSelected.height/ squareHeight);
+            itemSelected.x = currentSquare.x;
+            itemSelected.y = currentSquare.y;
         }
     }
 }

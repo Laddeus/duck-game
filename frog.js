@@ -9,23 +9,23 @@ class Frog{
     }
 
     draw(){
-        context.drawImage(this.image, this.left() - canvas.offsetLeft, this.top() - canvas.offsetTop)
+        context.drawImage(this.image, this.left() - canvas.offsetLeft, this.top() - canvas.offsetTop);
     }
 
     left(){
-        return this.x - this.width/2;
+        return this.x;
     }
 
     right(){
-        return this.x + this.width/2;
+        return this.x + this.width;
     }
 
     top(){
-        return this.y - this.height/2;
+        return this.y;
     }
 
     bottom(){
-        return this.y + this.height/2;
+        return this.y + this.height;
     }
 
     breadCollide(bread){
