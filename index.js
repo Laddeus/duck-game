@@ -22,7 +22,7 @@ function updateData(){
     duck.move();
     Bread.moveBreads();
     Turtle.moveTurtlesToNearestBread();
-    checkBreadCollisionWithObjects()
+    Bread.checkBreadCollisionWithObjects();
 
     context.clearRect(0, 0, canvas.width, canvas.height);
     updateCanvas();
@@ -32,13 +32,7 @@ function updateData(){
 }
 
 function updateCanvas(){
-
-
-    for (let i = 0; i < gameGrid.canvasGrid.length; i++) {
-        for (let j = 0; j < gameGrid.canvasGrid[i].length; j++) {
-            gameGrid.canvasGrid[i][j].draw();
-        }
-    }
+    GameGrid.drawGameGrid();
 
     if(itemSelected != null){
         itemSelected.draw();
@@ -46,34 +40,7 @@ function updateCanvas(){
 
     Bread.drawBreads();
     Turtle.drawTurtles();
-
     duck.draw();
-
-}
-
-function checkBreadCollisionWithObjects(){
-    for (let bread of Bread.allBreads) {
-        if(bread.intersects(duck)){
-            duck.breadCollide(bread);
-            userScore += 5;
-            amountOfBreadCaught += 1;
-        }
-
-        let gridSquare = gameGrid.getSquare(bread.right(), bread.y);
-        if(gridSquare != undefined && gridSquare.object != undefined){
-            gridSquare.object.breadCollide(bread);
-            userScore += 5;
-            amountOfBreadCaught += 1;
-        }
-
-        for (let turtle of Turtle.allTurtles) {
-            if(bread.intersects(turtle)){
-                turtle.breadCollide(bread);
-                userScore += 5;
-                amountOfBreadCaught += 1;
-            }
-        }
-    }
 }
 
 function adjustPointToCanvas(x,y,width,height)
@@ -93,21 +60,16 @@ function adjustPointToCanvas(x,y,width,height)
     return { x:newX, y:newY }
 }
 
-function pointInCanvas(x, y){
+/*function pointInCanvas(x, y){
     if(x <= canvas.offsetLeft + canvas.width - rightBorder && x >= canvas.offsetLeft + leftBorder
     && y <= canvas.offsetTop + canvas.height - bottomBorder && y >= canvas.offsetTop + topBorder){
         return true;
     }
 
     return false;
-}
+}*/
 
 function onCanvasClick(mouseEvent){
-
-    if(duck.contains(mouseEvent.x, mouseEvent.y)){
-
-    }
-
     if(itemSelected != null){
         gameGrid.addObjectToGrid(itemSelected);
         itemSelected = null;
@@ -120,7 +82,6 @@ function onCanvasClick(mouseEvent){
         duck.stopY = adjustedMouse.y;
 
         let distanceToPoint = Math.sqrt(squareOf(duck.x - duck.stopX) + squareOf(duck.y - duck.stopY));
-
         duck.moveX = duck.speed * (duck.stopX - duck.x) / distanceToPoint;
         duck.moveY = duck.speed * (duck.stopY - duck.y) / distanceToPoint;
 
@@ -146,6 +107,8 @@ function updateBreadCaught(){
 }
 
 function updateTimer() {
+    timer +=1;
+
     let seconds = timer % 60;
     let minutes = (Math.floor(timer / 60))%60;
     let hours = Math.floor((Math.floor(timer / 60))/60);
@@ -154,22 +117,6 @@ function updateTimer() {
 
     timerElement.textContent = timerText;
 
-}
-
-function spawnBread(){
-    let x = Math.random()*(canvas.width - rightBorder - leftBorder - 10) + canvas.offsetLeft + leftBorder;
-    let y = Math.random()*(canvas.height - bottomBorder - topBorder - 10) + canvas.offsetTop + topBorder;
-    Bread.allBreads.push(new Bread(x, y))
-    timer +=1;
-    updateTimer();
-}
-
-function pauseUpdateTimer() {
-    clearInterval(idOfSpawnBread);
-}
-
-function unpauseUpdateTimer() {
-    idOfSpawnBread = setInterval(spawnBread, 1000);
 }
 
 function onMouseMove(mouseEvent){
@@ -195,7 +142,7 @@ function btnTurtle(){
         'images/turtle.png',
         'images/turtleReverse.png',
         0, 0,
-        5));
+        1.2));
 }
 
 // main
@@ -207,15 +154,11 @@ let duck = new Duck(canvas.width / 2 + canvas.offsetLeft,
     'images/duckReverse.png',
     0, 0,
     5);
-let itemSelected = null;
-let x = 0;
-let y = 0;
-
 requestAnimationFrame(updateData);
-let idOfSpawnBread = setInterval(spawnBread, 1000);
+
+let itemSelected = null;
+let idOfUpdateTimer = setInterval(updateTimer, 1000);
 
 // event listeners
 canvas.addEventListener("mousedown", onCanvasClick);
-window.addEventListener('blur', pauseUpdateTimer);
-window.addEventListener('focus', unpauseUpdateTimer);
 canvas.addEventListener('mousemove', onMouseMove);

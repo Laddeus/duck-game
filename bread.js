@@ -1,6 +1,7 @@
 class Bread{
 
     static allBreads = [];
+    static idOfSpawnBread = setInterval(Bread.spawnBread, 100); // no ID
     constructor(x, y) {
         this.x = x;
         this.y = y;
@@ -78,4 +79,52 @@ class Bread{
             bread.move();
         }
     }
+
+    static checkBreadCollisionWithObjects(){
+        for (let bread of Bread.allBreads) {
+            if(bread.intersects(duck)){
+                duck.breadCollide(bread);
+                userScore += 5;
+                amountOfBreadCaught += 1;
+            }
+
+            let squareToCheckBottom = gameGrid.getSquare(bread.right(), bread.top());
+            let squareToCheckTop = gameGrid.getSquare(bread.right(), bread.bottom());
+            if(squareToCheckBottom != undefined && squareToCheckBottom.object != undefined) {
+                squareToCheckBottom.object.breadCollide(bread);
+                userScore += 5;
+                amountOfBreadCaught += 1;
+            }
+            else if(squareToCheckTop != undefined && squareToCheckTop.object != undefined){
+                squareToCheckTop.object.breadCollide(bread);
+                userScore += 5;
+                amountOfBreadCaught += 1;
+            }
+
+            for (let turtle of Turtle.allTurtles) {
+                if(bread.intersects(turtle)){
+                    turtle.breadCollide(bread);
+                    userScore += 5;
+                    amountOfBreadCaught += 1;
+                }
+            }
+        }
+    }
+
+    static spawnBread(){
+        let x = Math.random()*(canvas.width - rightBorder - leftBorder - 10) + canvas.offsetLeft + leftBorder;
+        let y = Math.random()*(canvas.height - bottomBorder - topBorder - 10) + canvas.offsetTop + topBorder;
+        Bread.allBreads.push(new Bread(x, y))
+    }
+
+    static startSpawnBread(){
+        Bread.idOfSpawnBread = setInterval(Bread.spawnBread, 100);
+    }
+
+    static stopSpawnBread(){
+        clearInterval(Bread.idOfSpawnBread);
+    }
 }
+
+window.addEventListener('blur', Bread.stopSpawnBread);
+window.addEventListener('focus', Bread.startSpawnBread);

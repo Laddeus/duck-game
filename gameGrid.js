@@ -94,4 +94,12 @@ class GameGrid{
             x = object.left();
         }
     }
+
+    static drawGameGrid(){
+        for (let i = 0; i < gameGrid.canvasGrid.length; i++) {
+            for (let j = 0; j < gameGrid.canvasGrid[i].length; j++) {
+                gameGrid.canvasGrid[i][j].draw();
+            }
+        }
+    }
 }
