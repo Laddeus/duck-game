@@ -65,6 +65,14 @@ function checkBreadCollisionWithObjects(){
             userScore += 5;
             amountOfBreadCaught += 1;
         }
+
+        for (let turtle of Turtle.allTurtles) {
+            if(bread.intersects(turtle)){
+                turtle.breadCollide(bread);
+                userScore += 5;
+                amountOfBreadCaught += 1;
+            }
+        }
     }
 }
 
@@ -180,7 +188,7 @@ function btnFrog(){
     }
 }
 
-function btnNet(){
+function btnTurtle(){
     Turtle.allTurtles.push(new Turtle(canvas.width / 2 + canvas.offsetLeft,
         canvas.height / 2 + canvas.offsetTop,
         50, 50,
