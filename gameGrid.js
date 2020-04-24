@@ -87,7 +87,7 @@ class GameGrid{
 
         x += squareWidth;
         for (y; y < object.top() + rows * squareHeight; y += squareHeight) {
-            for (x; x < object.left() + cols-1 * squareWidth; x += squareWidth) {
+            for (x; x < object.left() + cols * squareWidth; x += squareWidth) {
                 squareToOccupy = this.getSquare(x, y);
                 squareToOccupy.addObjectToSquare(object);
             }
