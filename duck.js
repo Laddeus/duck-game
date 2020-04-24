@@ -1,17 +1,19 @@
 class Duck{
-    constructor() {
-        this.width = 129;
-        this.height = 53;
+    constructor(x, y, width, height, imageSrc, reverseImageSrc, initialMoveX, initialMoveY, speed) {
+        this.width = width;
+        this.height = height;
         this.image = new Image(this.width, this.height);
-        this.image.src = 'images/duck.png';
+        this.image.src = imageSrc;
         this.reverseImage = new Image(this.width, this.height);
-        this.reverseImage.src = 'images/duckReverse.png';
+        this.reverseImage.src = reverseImageSrc;
         this.currentImage = this.image;
-        this.x = canvas.width / 2 + canvas.offsetLeft;
-        this.y = canvas.height / 2 + canvas.offsetTop;
-        this.moveX = 0;
-        this.moveY = 0;
-        this.speed = 5;
+        this.x = x;
+        this.y = y;
+        this.moveX = initialMoveX;
+        this.moveY = initialMoveY;
+        this.speed = speed;
+        this.stopX = undefined;
+        this.stopY = undefined
     }
 
     step(){
@@ -51,12 +53,12 @@ class Duck{
 
     checkIfReachedStopPoint() {
         // check if need to stop
-        if (stopX != undefined && stopY != undefined) {
+        if (this.stopX != undefined && this.stopY != undefined) {
 
-            let currentDistanceToStopPoint = squareOf(this.x - stopX)
-                + squareOf(this.y - stopY);
-            let distanceAfterStep = squareOf(this.x + this.moveX - stopX)
-                + squareOf(this.y + this.moveY - stopY)
+            let currentDistanceToStopPoint = squareOf(this.x - this.stopX)
+                + squareOf(this.y - this.stopY);
+            let distanceAfterStep = squareOf(this.x + this.moveX - this.stopX)
+                + squareOf(this.y + this.moveY - this.stopY)
             if (distanceAfterStep > currentDistanceToStopPoint ) {
                 this.stop();
             }

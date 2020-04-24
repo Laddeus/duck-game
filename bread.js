@@ -66,4 +66,16 @@ class Bread{
     bottom(){
         return this.y + this.height/2;
     }
+
+    static drawBreads(){
+        for (let bread of Bread.allBreads) {
+            bread.draw();
+        }
+    }
+
+    static moveBreads(){
+        for (let bread of Bread.allBreads) {
+            bread.move();
+        }
+    }
 }
