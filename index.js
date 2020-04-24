@@ -1,6 +1,7 @@
 // initialize variables
 let canvas = document.querySelector('canvas');
 let context = canvas.getContext('2d');
+context.font  = '30px ariel';
 /*canvas.scrollX =  0;
 canvas.scrollY = -window.scrollY;*/
 let stopX = undefined;
@@ -22,15 +23,8 @@ let breadElement = document.getElementById('bread');
 function updateData(){
     duck.move();
 
-    for (let bread of Bread.allBreads) {
-        bread.move()
+    checkBreadCollisionWithObjects();
 
-        if(bread.intersects(duck)){
-            duck.breadCollide(bread);
-            userScore += 5;
-            amountOfBreadCaught += 1;
-        }
-    }
 
     context.clearRect(0, 0, canvas.width, canvas.height);
     updateCanvas();
@@ -40,6 +34,7 @@ function updateData(){
 }
 
 function updateCanvas(){
+
 
     for (let i = 0; i < gameGrid.canvasGrid.length; i++) {
         for (let j = 0; j < gameGrid.canvasGrid[i].length; j++) {
@@ -56,8 +51,25 @@ function updateCanvas(){
 
     duck.draw();
 
+}
 
+function checkBreadCollisionWithObjects(){
+    for (let bread of Bread.allBreads) {
+        bread.move()
 
+        if(bread.intersects(duck)){
+            duck.breadCollide(bread);
+            userScore += 5;
+            amountOfBreadCaught += 1;
+        }
+
+        let gridSquare = gameGrid.getSquare(bread.right(), bread.y);
+        if(gridSquare != undefined && gridSquare.object != undefined){
+            gridSquare.object.breadCollide(bread);
+            userScore += 5;
+            amountOfBreadCaught += 1;
+        }
+    }
 }
 
 function adjustPointToCanvas(x,y,width,height)
@@ -89,10 +101,8 @@ function pointInCanvas(x, y){
 function onCanvasClick(mouseEvent){
 
     if(duck.contains(mouseEvent.x, mouseEvent.y)){
-        console.log('clicked');
-    }
 
-    console.log(mouseEvent.pageX + ' ' + mouseEvent.pageY);
+    }
 
     if(itemSelected != null){
         gameGrid.addObjectToGrid(itemSelected);
@@ -101,8 +111,6 @@ function onCanvasClick(mouseEvent){
     else{
         // moves duck to where user clicks
         let adjustedMouse = adjustPointToCanvas(mouseEvent.pageX, mouseEvent.pageY, duck.width, duck.height);
-
-        if(adjustedMouse.y > canvas.offsetTop + canvas.height-bottomBorder) { return console.log('clicked button area!');}
 
         stopX = adjustedMouse.x;
         stopY = adjustedMouse.y;
@@ -123,10 +131,6 @@ function onCanvasClick(mouseEvent){
 
 function squareOf(num){
     return num*num;
-}
-
-function myFunction(){
-    console.log('hi');
 }
 
 function updateUserScore() {
@@ -158,21 +162,18 @@ function spawnBread(){
 
 function pauseUpdateTimer() {
     clearInterval(idOfSpawnBread);
-    console.log('focus out');
 }
 
 function unpauseUpdateTimer() {
     idOfSpawnBread = setInterval(spawnBread, 1000);
-    console.log('focus in');
 }
 
 function onMouseMove(mouseEvent){
     if(itemSelected != null) {
         let currentSquare = gameGrid.getSquare(mouseEvent.pageX, mouseEvent.pageY);
-
         if(currentSquare != undefined) {
-            itemSelected.x = currentSquare.x + itemSelected.width/(itemSelected.width * 2 / squareWidth);
-            itemSelected.y = currentSquare.y + itemSelected.height/(itemSelected.height * 2 / squareHeight);
+            itemSelected.x = currentSquare.x + itemSelected.width/(itemSelected.width / squareWidth);
+            itemSelected.y = currentSquare.y + itemSelected.height/(itemSelected.height/ squareHeight);
         }
     }
 }
@@ -188,6 +189,8 @@ function btnFrog(){
 let gameGrid = new GameGrid();
 let duck = new Duck();
 let itemSelected = null;
+let x = 0;
+let y = 0;
 
 requestAnimationFrame(updateData);
 let idOfSpawnBread = setInterval(spawnBread, 1000);

@@ -47,7 +47,6 @@ class Bread{
     }
 
     destroy(){
-        Bread.count -= 1;
         let indexOfBreadToDestroy = Bread.allBreads.indexOf(this);
         Bread.allBreads.splice(indexOfBreadToDestroy, 1);
     }

@@ -27,4 +27,8 @@ class Frog{
     bottom(){
         return this.y + this.height/2;
     }
+
+    breadCollide(bread){
+        bread.destroy();
+    }
 }
