@@ -3,18 +3,20 @@
         body { margin:0; padding:0; padding-top:50px; background-color:white;}
         #container { width:800px; height:800px; margin-left:auto; margin-right:auto;}
         canvas {  background-image:url('images/bg.png');}
-        button { width:110px; height:110px; padding:0px; margin:10px;  border:3px solid black; background-color:white;  box-shadow: none;}
-        #buttons {  width:820px; margin-top:10px; margin-left:auto; margin-right:auto;}
-        button { border:none; margin:0; padding:0; outline:0; transition: 0.2s; position:relative; top:0px;}
-        #flippers {width:166; height:123;  background-image:url('images/btnflipper.jpg');}
-
-        #breadb { width:144; height:123; background-image:url('images/btnbred.jpg');}
-        #catcher { width:166; height:123; background-image:url('images/btncatcher.jpg');}
-        #frog {width:148; height:123; background-image:url('images/btnfrog.jpg');}
-        #net { width:166; height:123; background-image:url('images/btnnet.jpg');}
         
-        button:hover { position:relative; top:-5px; cursor:pointer; }
-        button:active { transition:0; transform:scale(0.9); border:0; outline:0;}
+        
+        button { padding:0px; margin:10px;  border:3px solid black; background-color:white;  box-shadow: none;}
+        
+        
+        #buttons {  width:820px; margin-top:10px; margin-left:auto; margin-right:auto;}
+        button { border:0; margin:0; padding:0; outline:0; transition: 0.2s; position:relative; top:0px;}
+        button img { transition:0.2s;}
+        
+
+  
+        
+        button img:hover { transition:5; transform:scale(1.05); cursor:pointer; }
+        button img:active { transition:5; transform:scale(0.9); border:0; outline:0;}
         
 
         
@@ -33,11 +35,11 @@
         <canvas width="800" height="674"></canvas>
         
     <div id="buttons">
-        <button id="flippers" onclick="btnFlippers()"></button>
-        <button id="breadb" onclick="btnBread()"></button>
-        <button id="catcher" onclick="btnCatcher"></button>
-        <button id="frog" onclick="btnFrog()"></button>
-        <button id="net" onclick="btnNet()"></button> 
+        <button id="flippers" onclick="btnFlippers()"><img src="images/btnflipper.jpg"></button>
+        <button id="breadb" onclick="btnBread()"><img src="images/btnbred.jpg"></button>
+        <button id="catcher" onclick="btnCatcher"><img src="images/btncatcher.jpg"></button>
+        <button id="frog" onclick="btnFrog()"><img src="images/btnfrog.jpg"></button>
+        <button id="net" onclick="btnNet()"><img src="images/btnnet.jpg"></button> 
         
     </div>
         
