@@ -33,6 +33,7 @@ function updateData(){
 
 function updateCanvas(){
     GameGrid.drawGameGrid();
+    drawSigns();
 
     if(itemSelected != null){
         itemSelected.draw();
@@ -98,6 +99,20 @@ function squareOf(num){
     return num*num;
 }
 
+function drawSigns(){
+    if(signCount != 0) {
+        let distanceBetweenSigns = signImage.width / signCount;
+        let startingY = topBorder - 20;
+        let startingX = 0 + leftBorder;
+        let endX = startingX + signCount*(signImage.width + distanceBetweenSigns);
+        for (let x = startingX; x < endX ; x += signImage.width + distanceBetweenSigns) {
+            context.drawImage(signImage, x, startingY);
+        }
+
+    }
+}
+
+
 function updateUserScore() {
     scoreElement.textContent = 'Score: ' + userScore;
 }
@@ -150,6 +165,10 @@ function btnTurtle(){
         1.2));
 }
 
+function btnCatcher(){
+
+}
+
 // main
 let gameGrid = new GameGrid();
 let duck = new Duck(canvas.width / 2 + canvas.offsetLeft,
@@ -164,6 +183,9 @@ requestAnimationFrame(updateData);
 
 let itemSelected = null;
 let idOfUpdateTimer = setInterval(updateTimer, 1000);
+let signCount = 5;
+let signImage = new Image(100, 50);
+signImage.src = 'images/sign.png';
 
 // event listeners
 canvas.addEventListener("mousedown", onCanvasClick);
