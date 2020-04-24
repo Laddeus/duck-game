@@ -4,8 +4,6 @@ let context = canvas.getContext('2d');
 context.font  = '30px ariel';
 /*canvas.scrollX =  0;
 canvas.scrollY = -window.scrollY;*/
-let stopX = undefined;
-let stopY = undefined
 
 leftBorder = 10;
 rightBorder = 10;
@@ -22,7 +20,9 @@ let breadElement = document.getElementById('bread');
 // functions
 function updateData(){
     duck.move();
-    checkBreadCollisionWithObjects();
+    Bread.moveBreads();
+    Turtle.moveTurtlesToNearestBread();
+    checkBreadCollisionWithObjects()
 
     context.clearRect(0, 0, canvas.width, canvas.height);
     updateCanvas();
@@ -43,9 +43,9 @@ function updateCanvas(){
     if(itemSelected != null){
         itemSelected.draw();
     }
-    for (let bread of Bread.allBreads) {
-        bread.draw();
-    }
+
+    Bread.drawBreads();
+    Turtle.drawTurtles();
 
     duck.draw();
 
@@ -53,8 +53,6 @@ function updateCanvas(){
 
 function checkBreadCollisionWithObjects(){
     for (let bread of Bread.allBreads) {
-        bread.move()
-
         if(bread.intersects(duck)){
             duck.breadCollide(bread);
             userScore += 5;
@@ -110,13 +108,13 @@ function onCanvasClick(mouseEvent){
         // moves duck to where user clicks
         let adjustedMouse = adjustPointToCanvas(mouseEvent.pageX, mouseEvent.pageY, duck.width, duck.height);
 
-        stopX = adjustedMouse.x;
-        stopY = adjustedMouse.y;
+        duck.stopX = adjustedMouse.x;
+        duck.stopY = adjustedMouse.y;
 
-        let distanceToPoint = Math.sqrt(squareOf(duck.x - stopX) + squareOf(duck.y - stopY));
+        let distanceToPoint = Math.sqrt(squareOf(duck.x - duck.stopX) + squareOf(duck.y - duck.stopY));
 
-        duck.moveX = duck.speed * (stopX - duck.x) / distanceToPoint;
-        duck.moveY = duck.speed * (stopY - duck.y) / distanceToPoint;
+        duck.moveX = duck.speed * (duck.stopX - duck.x) / distanceToPoint;
+        duck.moveY = duck.speed * (duck.stopY - duck.y) / distanceToPoint;
 
         if(duck.moveX > 0){
             duck.faceRight();
@@ -182,10 +180,25 @@ function btnFrog(){
     }
 }
 
+function btnNet(){
+    Turtle.allTurtles.push(new Turtle(canvas.width / 2 + canvas.offsetLeft,
+        canvas.height / 2 + canvas.offsetTop,
+        50, 50,
+        'images/turtle.png',
+        'images/turtleReverse.png',
+        0, 0,
+        5));
+}
 
 // main
 let gameGrid = new GameGrid();
-let duck = new Duck();
+let duck = new Duck(canvas.width / 2 + canvas.offsetLeft,
+    canvas.height / 2 + canvas.offsetTop,
+    93, 44,
+    'images/duck.png',
+    'images/duckReverse.png',
+    0, 0,
+    5);
 let itemSelected = null;
 let x = 0;
 let y = 0;
