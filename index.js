@@ -40,6 +40,7 @@ function updateData(){
 }
 
 function updateCanvas(){
+
     for (let i = 0; i < gameGrid.canvasGrid.length; i++) {
         for (let j = 0; j < gameGrid.canvasGrid[i].length; j++) {
             gameGrid.canvasGrid[i][j].draw();
@@ -94,8 +95,7 @@ function onCanvasClick(mouseEvent){
     console.log(mouseEvent.pageX + ' ' + mouseEvent.pageY);
 
     if(itemSelected != null){
-        let selectedSquare = gameGrid.getSquare(mouseEvent.pageX, mouseEvent.pageY);
-        selectedSquare.addObject(itemSelected);
+        gameGrid.addObjectToGrid(itemSelected);
         itemSelected = null;
     }
     else{
@@ -167,10 +167,13 @@ function unpauseUpdateTimer() {
 }
 
 function onMouseMove(mouseEvent){
-    if(itemSelected != null){
+    if(itemSelected != null) {
         let currentSquare = gameGrid.getSquare(mouseEvent.pageX, mouseEvent.pageY);
-        itemSelected.x = currentSquare.x;
-        itemSelected.y = currentSquare.y;
+
+        if(currentSquare != undefined) {
+            itemSelected.x = currentSquare.x + itemSelected.width/(itemSelected.width * 2 / squareWidth);
+            itemSelected.y = currentSquare.y + itemSelected.height/(itemSelected.height * 2 / squareHeight);
+        }
     }
 }
 

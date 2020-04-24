@@ -2,15 +2,14 @@ class Frog{
     constructor() {
         this.x = -1;
         this.y = -1;
-        this.width = 25;
-        this.height = 25;
+        this.width = 50;
+        this.height = 50;
         this.image = new Image(this.width, this.height);
+        this.image.src = 'images/frog.png';
     }
 
     draw(){
-        context.beginPath();
-        context.arc( this.x - canvas.offsetLeft,this.y - canvas.offsetTop,this.width/2, 0, 180);
-        context.stroke();
+        context.drawImage(this.image, this.left() - canvas.offsetLeft, this.top() - canvas.offsetTop)
     }
 
     left(){
