@@ -9,7 +9,7 @@ class Square{
 
     draw(){
         if(this.object != undefined){
-            context.drawImage(this.object.image, this.left() - canvas.offsetLeft, this.top() - canvas.offsetTop)
+            this.object.draw();
         }
     }
 
@@ -45,6 +45,6 @@ class GameGrid{
     }
 
     getSquare(x, y){
-        return this.canvasGrid[Math.round(y/25)][Math.round(x/25)];
+        return this.canvasGrid[Math.round((y - canvas.offsetTop - topBorder)/25)][Math.round((x -canvas.offsetLeft - leftBorder)/25)];
     }
 }
