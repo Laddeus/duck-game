@@ -9,7 +9,7 @@ let stopY = undefined
 leftBorder = 10;
 rightBorder = 10;
 topBorder = 50;
-bottomBorder = 140;
+bottomBorder = 30;
 
 let userScore = 0;
 let timer = 0;
