@@ -1,11 +1,17 @@
 class Duck{
-    constructor(x, y, width, height, imageSrc, reverseImageSrc, initialMoveX, initialMoveY, speed) {
+    constructor(x, y, width, height, imageSrc, reverseImageSrc, imageJetSrc, reverseImageJetSrc, initialMoveX, initialMoveY, speed) {
+        this.jetpack = false;
         this.width = width;
         this.height = height;
         this.image = new Image(this.width, this.height);
         this.image.src = imageSrc;
         this.reverseImage = new Image(this.width, this.height);
         this.reverseImage.src = reverseImageSrc;
+        this.jetImage = new Image(this.width, this.height);
+        this.jetImage.src = imageJetSrc;
+        this.jetReverseImage = new Image(this.width, this.height);
+        this.jetReverseImage.src = reverseImageJetSrc;    
+        
         this.currentImage = this.image;
         this.x = x;
         this.y = y;
@@ -14,11 +20,18 @@ class Duck{
         this.speed = speed;
         this.stopX = undefined;
         this.stopY = undefined
+    
     }
 
     step(){
-        this.x += this.moveX;
-        this.y += this.moveY;
+        if(this.jetpack) {
+            this.x += this.moveX*2;
+            this.y += this.moveY*2;  
+        }
+        else {
+            this.x += this.moveX;
+            this.y += this.moveY;
+        }
     }
 
     stepBack(){
@@ -70,11 +83,13 @@ class Duck{
     }
 
     faceRight(){
-        this.currentImage = this.reverseImage;
+        if(this.jetpack) { this.currentImage = this.jetReverseImage;}
+        else{ this.currentImage = this.reverseImage; }
     }
 
     faceLeft(){
-        this.currentImage = this.image;
+        if(this.jetpack) { this.currentImage = this.jetImage;}
+        else{ this.currentImage = this.image; }
     }
     
     left(){

@@ -135,6 +135,11 @@ function btnFrog(){
     }
 }
 
+function btnJet(){
+    duck.jetpack = true;
+
+}
+
 function btnTurtle(){
     Turtle.allTurtles.push(new Turtle(canvas.width / 2 + canvas.offsetLeft,
         canvas.height / 2 + canvas.offsetTop,
@@ -152,6 +157,8 @@ let duck = new Duck(canvas.width / 2 + canvas.offsetLeft,
     93, 44,
     'images/duck.png',
     'images/duckReverse.png',
+    'images/jetDuck.png',
+    'images/jetDuckReverse.png',
     0, 0,
     5);
 requestAnimationFrame(updateData);
