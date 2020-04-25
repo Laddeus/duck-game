@@ -76,6 +76,14 @@ class GameGrid{
     }
 
     addObjectToGrid(object){
+        let lastRow = this.canvasGrid.length - 1;
+        let lastColumn = this.canvasGrid[0].length - 1;
+        let lastSquare = this.canvasGrid[lastRow][lastColumn];
+        if(object.right() > lastSquare.right()
+        || object.bottom() > lastSquare.bottom() ){
+            return;
+        }
+
         let rows = object.height / squareHeight;
         let cols = object.width / squareWidth;
         let x = object.left();

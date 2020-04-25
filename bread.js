@@ -34,8 +34,6 @@ class Bread{
     }
 
     draw(){
-
-
         switch(this.frame)
         {
             case 0: { this.image.src = 'images/bread0.png'; break; }
@@ -44,7 +42,7 @@ class Bread{
             case 3: { this.image.src = 'images/bread3.png'; break; }
             default: { this.image.src = 'images/bread3.png'; break; }
         }
-        if(this.animstep % 20 == 0 ) {this.frame++;}
+        if(this.animstep % 14 == 0 ) {this.frame++;}
         if(this.frame < 4) { this.animstep++;}
         //console.log(this.x-this.initialx;);
         

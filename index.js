@@ -36,8 +36,23 @@ function updateCanvas(){
     drawSigns();
 
     if(itemSelected != null){
+        context.strokeStyle = 'black';
         itemSelected.draw();
+        if(isWrongPositionOnGrid == true){
+            context.strokeStyle = 'red';
+
+            context.beginPath();
+            context.moveTo(itemSelected.left() - canvas.offsetLeft, itemSelected.top() - canvas.offsetTop);
+            context.lineTo(itemSelected.right() - canvas.offsetLeft, itemSelected.bottom() - canvas.offsetTop);
+            context.stroke();
+
+            context.beginPath();
+            context.moveTo(itemSelected.left() - canvas.offsetLeft, itemSelected.bottom() - canvas.offsetTop);
+            context.lineTo(itemSelected.right() - canvas.offsetLeft, itemSelected.top() - canvas.offsetTop);
+            context.stroke();
+        }
     }
+
 
     Bread.drawBreads();
     Turtle.drawTurtles();
@@ -137,6 +152,17 @@ function updateTimer() {
 
 function onMouseMove(mouseEvent){
     if(itemSelected != null) {
+
+        let lastRow = gameGrid.canvasGrid.length - 1;
+        let lastColumn = gameGrid.canvasGrid[0].length - 1;
+        let lastSquare = gameGrid.canvasGrid[lastRow][lastColumn];
+        if(itemSelected.right() > lastSquare.right()
+            || itemSelected.bottom() > lastSquare.bottom() ){
+            isWrongPositionOnGrid= true;
+        }
+        else{
+            isWrongPositionOnGrid = false;
+        }
         let currentSquare = gameGrid.getSquare(mouseEvent.pageX, mouseEvent.pageY);
         if(currentSquare != undefined) {
             itemSelected.x = currentSquare.x;
@@ -185,6 +211,8 @@ let duck = new Duck(canvas.width / 2 + canvas.offsetLeft,
 requestAnimationFrame(updateData);
 
 let itemSelected = null;
+let isWrongPositionOnGrid = false;
+
 let idOfUpdateTimer = setInterval(updateTimer, 1000);
 let signCount = 0;
 let signImage = new Image(100, 50);
