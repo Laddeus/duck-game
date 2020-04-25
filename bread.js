@@ -6,7 +6,6 @@ class Bread{
         this.x = x;
         this.initialx = x;
         this.y = y;
-        this.height = 20;
         this.frame = 0;
         this.width = 15;
         this.height = 15;
@@ -45,7 +44,7 @@ class Bread{
             case 3: { this.image.src = 'images/bread3.png'; break; }
             default: { this.image.src = 'images/bread3.png'; break; }
         }
-        if(Math.floor(this.x-this.initialx) % 10 == 0) {this.frame++;}
+        if(this.frame< 4 && Math.floor(this.x-this.initialx) % 10 == 0) {this.frame++;}
         //console.log(this.x-this.initialx;);
         
         
