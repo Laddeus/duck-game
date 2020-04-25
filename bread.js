@@ -139,6 +139,11 @@ class Bread{
             Bread.allBreads.push(new Bread(x, y))
         }
     }
+    static spawnABread(x,y){
+
+            Bread.allBreads.push(new Bread(x, y));
+        
+    }
 
     static startSpawnBread(){
         Bread.idOfSpawnBread = setInterval(Bread.spawnBread, 500);

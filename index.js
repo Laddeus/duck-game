@@ -182,6 +182,11 @@ function btnFrog(){
         itemSelected = new Frog();
     }
 }
+function btnDuplicator(){
+    if(itemSelected == null){
+        itemSelected = new Duplicator();
+    }
+}
 
 function btnJet(){
     duck.addJetpack();
