@@ -1,8 +1,8 @@
 class Duck{
     constructor(x, y, width, height, imageSrc, reverseImageSrc, initialMoveX, initialMoveY, speed) {
         this.jetpack = false;
-        this.width = width;
-        this.height = height;
+        this.width = width * SCALE;
+        this.height = height * SCALE;
         this.image = new Image(this.width, this.height);
         this.image.src = imageSrc;
         this.reverseImage = new Image(this.width, this.height);
@@ -55,7 +55,7 @@ class Duck{
     }
 
     draw(){
-        context.drawImage(this.currentImage, this.left() - canvas.offsetLeft, this.top() - canvas.offsetTop);
+        context.drawImage(this.currentImage, this.left() - canvas.offsetLeft, this.top() - canvas.offsetTop, this.width, this.height);
     }
 
     contains(x, y){
