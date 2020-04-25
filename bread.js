@@ -4,9 +4,12 @@ class Bread{
     static idOfSpawnBread = setInterval(Bread.spawnBread, 500); // no ID
     constructor(x, y) {
         this.x = x;
+        this.initialx = x;
         this.y = y;
-        this.width = 20;
         this.height = 20;
+        this.frame = 0;
+        this.width = 15;
+        this.height = 15;
         this.moveX = 1;
         this.moveY = 0;
         this.image = new Image(this.width, this.height);
@@ -32,7 +35,20 @@ class Bread{
     }
 
     draw(){
-        context.beginPath();
+
+
+        switch(this.frame)
+        {
+            case 0: { this.image.src = 'images/bread0.png'; break; }
+            case 1: { this.image.src = 'images/bread1.png'; break; }
+            case 2: { this.image.src = 'images/bread2.png'; break; }
+            case 3: { this.image.src = 'images/bread3.png'; break; }
+            default: { this.image.src = 'images/bread3.png'; break; }
+        }
+        if(Math.floor(this.x-this.initialx) % 10 == 0) {this.frame++;}
+        //console.log(this.x-this.initialx;);
+        
+        
         context.drawImage(this.image, this.left() - canvas.offsetLeft, this.top() - canvas.offsetTop);
         context.stroke();
     }
