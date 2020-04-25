@@ -7,8 +7,13 @@ class Bread{
         this.y = y;
         this.animstep = 0;
         this.frame = 0;
-        this.width = 15;
-        this.height = 15;
+        
+        // SCALING
+        this.width = 10 * SCALE;
+        this.height = 10 * SCALE;
+        if(this.width < 10) {this.width = 10;}
+        if(this.height < 10) {this.height = 10;}
+        
         this.moveX = 1;
         this.moveY = 0;
         this.image = new Image(this.width, this.height);
@@ -42,12 +47,13 @@ class Bread{
             case 3: { this.image.src = 'images/bread3.png'; break; }
             default: { this.image.src = 'images/bread3.png'; break; }
         }
-        if(this.animstep % 14 == 0 ) {this.frame++;}
+
+        if(this.animstep % 10 == 0 ) {this.frame++;}
         if(this.frame < 4) { this.animstep++;}
         //console.log(this.x-this.initialx;);
         
         
-        context.drawImage(this.image, this.left() - canvas.offsetLeft, this.top() - canvas.offsetTop);
+        context.drawImage(this.image, this.left() - canvas.offsetLeft, this.top() - canvas.offsetTop, this.width, this.height);
         context.stroke();
     }
 

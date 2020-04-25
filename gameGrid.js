@@ -1,8 +1,12 @@
-squareWidth = 25;
-squareHeight = 25;
+squareWidthConst = 25;
+squareHeightConst = 25;
 
 class Square{
+    
+
     constructor(x, y) {
+        var squareWidth = squareWidthConst * SCALE;
+        var squareHeight = squareHeightConst * SCALE;
         this.width = squareWidth;
         this.height = squareHeight;
         this.x = x;
@@ -13,7 +17,7 @@ class Square{
 
     draw(){
         context.globalAlpha = 0.1;
-        context.setLineDash([3, 3]);
+        context.setLineDash([3, this.width-3]);
         context.beginPath();
         context.rect(this.left() - canvas.offsetLeft, this.top() - canvas.offsetTop, this.width, this.height);
         context.stroke();
@@ -51,7 +55,12 @@ class Square{
 }
 
 class GameGrid{
+    
+
     constructor() {
+        
+        var squareWidth = squareWidthConst * SCALE;
+        var squareHeight = squareHeightConst * SCALE;
         let gridRowSize = Math.round((canvas.height - bottomBorder - topBorder*2)/squareHeight);
         let gridColumnSize = Math.round((canvas.width - leftBorder - rightBorder)/squareWidth)
 
@@ -59,12 +68,14 @@ class GameGrid{
         for (let i = 0; i < gridRowSize ; i++) {
             this.canvasGrid[i]= new Array(gridColumnSize);
             for (let j = 0; j < gridColumnSize ; j++) {
-                this.canvasGrid[i][j] = new Square(j*25 + canvas.offsetLeft + leftBorder, i*25 + canvas.offsetTop + topBorder*2);
+                this.canvasGrid[i][j] = new Square(j*25* SCALE + canvas.offsetLeft + leftBorder, i*25* SCALE + canvas.offsetTop + topBorder*2);
             }
         }
     }
 
     getSquare(x, y){
+        var squareWidth = squareWidthConst * SCALE;
+        var squareHeight = squareHeightConst * SCALE;
         let adjustedY = Math.floor((y - canvas.offsetTop - topBorder*2)/squareHeight);
         let adjustedX = Math.floor((x - canvas.offsetLeft - leftBorder)/squareWidth);
         // console.log(adjustedY + ' ' + adjustedX);
@@ -84,6 +95,8 @@ class GameGrid{
             return;
         }
 
+        var squareWidth = squareWidthConst * SCALE;
+        var squareHeight = squareHeightConst * SCALE;
         let rows = object.height / squareHeight;
         let cols = object.width / squareWidth;
         let x = object.left();
