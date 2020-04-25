@@ -1,4 +1,6 @@
-    class Duplicator{
+class Duplicator{
+
+
 
     constructor() {
         this.x = -1;
@@ -9,9 +11,10 @@
         this.image = new Image(this.width, this.height);
         this.image.src = 'images/duplicator.png';
         this.timer = setInterval(this.releaseBread.bind(this), 1000);
-        
+
+
     }
-    
+
     draw(){
         context.drawImage(this.image, this.left() - canvas.offsetLeft, this.top() - canvas.offsetTop, this.width, this.height);
     }
@@ -31,7 +34,7 @@
     bottom(){
         return this.y + this.height;
     }
-    
+
     releaseBread(){
         if(this.storage > 0)
         {
@@ -41,12 +44,9 @@
 
 
     }
-    
+
     breadCollide(bread){
         bread.destroy();
         this.storage+=2;
-
-        this.timer = setInterval(this.releaseBread.bind(this), 5000);
-        // Bread.spawnABread(this.x+this.width,this.y+this.height/(3/2));
     }
 }
