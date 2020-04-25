@@ -100,7 +100,7 @@ class Bread{
         }
     }
 
-    static checkBreadCollisionWithObjects(){
+    static  checkBreadCollisionWithObjects(){
         for (let bread of Bread.allBreads) {
             if(bread.intersects(duck)){
                 duck.breadCollide(bread);

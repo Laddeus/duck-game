@@ -1,6 +1,4 @@
-class Duplicator{
-    
-
+    class Duplicator{
 
     constructor() {
         this.x = -1;
@@ -10,9 +8,7 @@ class Duplicator{
         this.height = 25 * SCALE;
         this.image = new Image(this.width, this.height);
         this.image.src = 'images/duplicator.png';
-        this.timer;
-   
-        
+        this.timer = 0
     }
     
 
@@ -39,8 +35,6 @@ class Duplicator{
     
     releaseBread(){
         Bread.spawnABread(this.x+this.width,this.y+this.height/4);
-
-      
     }
     
     breadCollide(bread){
@@ -49,7 +43,7 @@ class Duplicator{
         //Bread.spawnABread(this.x+this.width,this.y+this.height/4);
         this.storage++;
         
-        this.timer = setInterval(this.releaseBread(), 5000);
-        //Bread.spawnABread(this.x+this.width,this.y+this.height/(3/2));
+        this.timer = setInterval(this.releaseBread.bind(this), 5000);
+        // Bread.spawnABread(this.x+this.width,this.y+this.height/(3/2));
     }
 }
