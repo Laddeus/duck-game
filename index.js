@@ -9,10 +9,10 @@ canvas.scrollY = -window.scrollY;*/
 // SCALE AND BORDERS
 const SCALE = 0.75; 
 
-leftBorder = 10;
-rightBorder = 10;
-topBorder = 50;
-bottomBorder = 30;
+let leftBorder = 10;
+let rightBorder = 10;
+let topBorder = 50;
+let bottomBorder = 30;
 
 
 

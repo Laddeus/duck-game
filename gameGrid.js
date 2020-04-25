@@ -61,9 +61,13 @@ class GameGrid{
         
         var squareWidth = squareWidthConst * SCALE;
         var squareHeight = squareHeightConst * SCALE;
-        let gridRowSize = Math.round((canvas.height - bottomBorder - topBorder*2)/squareHeight);
-        let gridColumnSize = Math.round((canvas.width - leftBorder - rightBorder)/squareWidth)
+        let gridRowSize = Math.floor((canvas.height - bottomBorder - topBorder*2)/squareHeight);
+        let gridColumnSize = Math.floor((canvas.width - leftBorder - rightBorder)/squareWidth);
 
+        // adjust left and right borders of work area to be centred
+        leftBorder = (800 - squareWidth * gridColumnSize)/2;
+        rightBorder = (800 - squareWidth * gridColumnSize)/2;
+        
         this.canvasGrid = new Array(gridRowSize);
         for (let i = 0; i < gridRowSize ; i++) {
             this.canvasGrid[i]= new Array(gridColumnSize);
