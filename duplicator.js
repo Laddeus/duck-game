@@ -10,13 +10,11 @@ class Duplicator{
         this.height = 25 * SCALE;
         this.image = new Image(this.width, this.height);
         this.image.src = 'images/duplicator.png';
-        this.timer;
+        this.timer = setInterval(this.releaseBread.bind(this), 1000);
    
         
     }
     
-
-
     draw(){
         context.drawImage(this.image, this.left() - canvas.offsetLeft, this.top() - canvas.offsetTop, this.width, this.height);
     }
@@ -38,18 +36,18 @@ class Duplicator{
     }
     
     releaseBread(){
-        Bread.spawnABread(this.x+this.width,this.y+this.height/4);
-
+        if(this.storage > 0)
+        {
+            this.storage--;
+            Bread.spawnABread(this.x+this.width,this.y+this.height/4);
+        }
+        
       
     }
     
     breadCollide(bread){
-        console.log(this);
         bread.destroy();
-        //Bread.spawnABread(this.x+this.width,this.y+this.height/4);
-        this.storage++;
+        this.storage+=2;
         
-        this.timer = setInterval(this.releaseBread(), 5000);
-        //Bread.spawnABread(this.x+this.width,this.y+this.height/(3/2));
     }
 }
