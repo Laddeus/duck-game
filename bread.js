@@ -4,8 +4,8 @@ class Bread{
     static idOfSpawnBread = setInterval(Bread.spawnBread, 500); // no ID
     constructor(x, y) {
         this.x = x;
-        this.initialx = x;
         this.y = y;
+        this.animstep = 0;
         this.frame = 0;
         this.width = 15;
         this.height = 15;
@@ -44,7 +44,8 @@ class Bread{
             case 3: { this.image.src = 'images/bread3.png'; break; }
             default: { this.image.src = 'images/bread3.png'; break; }
         }
-        if(this.frame< 4 && Math.floor(this.x-this.initialx) % 10 == 0) {this.frame++;}
+        if(this.animstep % 20 == 0 ) {this.frame++;}
+        if(this.frame < 4) { this.animstep++;}
         //console.log(this.x-this.initialx;);
         
         
