@@ -11,7 +11,8 @@ class Duck{
         this.jetImage.src = 'images/jetDuck.png';
         this.jetReverseImage = new Image(this.width, this.height);
         this.jetReverseImage.src = 'images/jetDuckReverse.png';    
-        
+        this.sound = new Audio('sound/duckSound.mp3');
+
         this.currentImage = this.image;
         this.x = x;
         this.y = y;
@@ -20,7 +21,7 @@ class Duck{
         this.speed = speed;
         this.stopX = undefined;
         this.stopY = undefined
-    
+
     }
 
     step(){
@@ -56,6 +57,10 @@ class Duck{
 
     draw(){
         context.drawImage(this.currentImage, this.left() - canvas.offsetLeft, this.top() - canvas.offsetTop, this.width, this.height);
+    }
+
+    makeSound(){
+        this.sound.play();
     }
 
     contains(x, y){

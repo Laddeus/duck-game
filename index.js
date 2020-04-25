@@ -113,6 +113,8 @@ function onCanvasClick(mouseEvent){
         else{
             duck.faceLeft();
         }
+
+        duck.makeSound();
     }
 }
 
