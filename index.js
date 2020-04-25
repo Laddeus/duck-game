@@ -100,15 +100,16 @@ function squareOf(num){
 }
 
 function drawSigns(){
-    if(signCount != 0) {
-        let distanceBetweenSigns = signImage.width / signCount;
-        let startingY = topBorder - 20;
-        let startingX = 0 + leftBorder;
-        let endX = startingX + signCount*(signImage.width + distanceBetweenSigns);
-        for (let x = startingX; x < endX ; x += signImage.width + distanceBetweenSigns) {
-            context.drawImage(signImage, x, startingY);
-        }
 
+    let dist = (canvas.width-leftBorder-rightBorder-signImage.width)/signCount;
+    if(signCount > 0)
+    {
+        for (let i = 0; i < signCount; i++)
+        {
+
+            context.drawImage(signImage, leftBorder+i*dist, topBorder-20);
+
+        }
     }
 }
 
@@ -165,7 +166,9 @@ function btnTurtle(){
         1.2));
 }
 
-function btnCatcher(){
+function btnBread(){
+    
+    signCount++;
 
 }
 
@@ -183,7 +186,7 @@ requestAnimationFrame(updateData);
 
 let itemSelected = null;
 let idOfUpdateTimer = setInterval(updateTimer, 1000);
-let signCount = 5;
+let signCount = 0;
 let signImage = new Image(100, 50);
 signImage.src = 'images/sign.png';
 

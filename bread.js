@@ -1,7 +1,7 @@
 class Bread{
 
     static allBreads = [];
-    static idOfSpawnBread = setInterval(Bread.spawnBread, 100); // no ID
+    static idOfSpawnBread = setInterval(Bread.spawnBread, 500); // no ID
     constructor(x, y) {
         this.x = x;
         this.y = y;
@@ -112,13 +112,16 @@ class Bread{
     }
 
     static spawnBread(){
-        let x = Math.random()*(canvas.width - rightBorder - leftBorder - 10) + canvas.offsetLeft + leftBorder;
-        let y = Math.random()*(canvas.height - bottomBorder - topBorder*2 - 10) + canvas.offsetTop + topBorder*2;
-        Bread.allBreads.push(new Bread(x, y))
+        for(let i = 0; i<signCount+1; i++)
+        {
+            let x = Math.random()*(canvas.width - rightBorder - leftBorder - 10) + canvas.offsetLeft + leftBorder;
+            let y = Math.random()*(canvas.height - bottomBorder - topBorder*2 - 10) + canvas.offsetTop + topBorder*2;
+            Bread.allBreads.push(new Bread(x, y))
+        }
     }
 
     static startSpawnBread(){
-        Bread.idOfSpawnBread = setInterval(Bread.spawnBread, 100);
+        Bread.idOfSpawnBread = setInterval(Bread.spawnBread, 500);
     }
 
     static stopSpawnBread(){
