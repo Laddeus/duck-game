@@ -49,12 +49,12 @@ class Bread{
         }
 
         if(this.animstep % 10 == 0 ) {this.frame++;}
-        if(this.frame < 4) { this.animstep++;}
+        if(this.frame < 4) { this.animstep++;} 
         //console.log(this.x-this.initialx;);
         
         
         context.drawImage(this.image, this.left() - canvas.offsetLeft, this.top() - canvas.offsetTop, this.width, this.height);
-        context.stroke();
+        //context.stroke();
     }
 
     // check if bread intersects with another rectangular object

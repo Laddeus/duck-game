@@ -17,7 +17,7 @@ class Square{
 
     draw(){
         context.globalAlpha = 0.1;
-        context.setLineDash([3, this.width-3]);
+        context.setLineDash([1, 4]);
         context.beginPath();
         context.rect(this.left() - canvas.offsetLeft, this.top() - canvas.offsetTop, this.width, this.height);
         context.stroke();
