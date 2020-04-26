@@ -32,20 +32,22 @@
         <p><b id="score">Score: 0</b> //
         <b id="time">Time: 00:00:00</b> //
             <b id="bread">Bread: 0</b></p>
-        <canvas width="800" height="674"></canvas>
+        <canvas oncontextmenu="return false;" width="800" height="674"></canvas>
         
     <div id="buttons">
-        <button id="flippers" onclick="btnJet()"><img src="images/btnjet.jpg"></button>
+        <button id="jet" onclick="btnJet()"><img src="images/btnjet.jpg"></button>
         <button id="breadb" onclick="btnBread()"><img src="images/btnbred.jpg"></button>
-        <button id="catcher" onclick="btnDuplicator()"><img src="images/btncatcher.jpg"></button>
+        <button id="Duplicator" onclick="btnDuplicator()"><img src="images/btncatcher.jpg"></button>
+        <button id="Net" onclick="btnNet()"><img src="images/btncatcher.jpg"></button>
         <button id="frog" onclick="btnFrog()"><img src="images/btnfrog.jpg"></button>
-        <button id="net" onclick="btnTurtle()"><img src="images/btnturtle.jpg"></button> 
+        <button id="turtle" onclick="btnTurtle()"><img src="images/btnturtle.jpg"></button> 
         
     </div>
         
 
     </div>
     <script src="frog.js"></script>
+    <script src="net.js"></script>
     <script src="duplicator.js"></script>
     <script src="bread.js"></script>
     <script src="gameGrid.js"></script>

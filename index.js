@@ -7,7 +7,7 @@ canvas.scrollY = -window.scrollY;*/
 
 
 // SCALE AND BORDERS
-const SCALE = 0.75; 
+const SCALE = 1; 
 
 let leftBorder = 10;
 let rightBorder = 10;
@@ -60,6 +60,7 @@ function updateCanvas(){
     }
 
 
+
     Bread.drawBreads();
     Turtle.drawTurtles();
     duck.draw();
@@ -92,9 +93,17 @@ function adjustPointToCanvas(x,y,width,height)
 }*/
 
 function onCanvasClick(mouseEvent){
+
     if(itemSelected != null){
         gameGrid.addObjectToGrid(itemSelected);
         itemSelected = null;
+    }
+    else if(mouseEvent.which === 3 && currentHover != null )
+    {
+        currentHover.destroy();
+        currentHover = null;
+
+        
     }
     else{
         // moves duck to where user clicks
@@ -114,7 +123,7 @@ function onCanvasClick(mouseEvent){
             duck.faceLeft();
         }
 
-        duck.makeSound();
+        //duck.makeSound();
     }
 }
 
@@ -177,11 +186,20 @@ function onMouseMove(mouseEvent){
             itemSelected.y = currentSquare.y;
         }
     }
+    let currentSquare = gameGrid.getSquare(mouseEvent.pageX, mouseEvent.pageY);
+    if(currentSquare != undefined && itemSelected == null) {
+        currentHover = currentSquare.object;    
+    }
 }
 
 function btnFrog(){
     if(itemSelected == null){
         itemSelected = new Frog();
+    }
+}
+function btnNet(){
+    if(itemSelected == null){
+        itemSelected = new Net();
     }
 }
 function btnDuplicator(){
@@ -224,6 +242,7 @@ let duck = new Duck(canvas.width / 2 + canvas.offsetLeft,
 requestAnimationFrame(updateData);
 
 let itemSelected = null;
+let currentHover = null;
 let isWrongPositionOnGrid = false;
 
 let idOfUpdateTimer = setInterval(updateTimer, 1000);

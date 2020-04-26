@@ -48,5 +48,7 @@ class Duplicator{
     breadCollide(bread){
         bread.destroy();
         this.storage+=2;
+        userScore += 5;
+        amountOfBreadCaught += 1;
     }
 }
